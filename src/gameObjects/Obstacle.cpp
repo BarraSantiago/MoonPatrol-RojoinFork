@@ -22,3 +22,9 @@ void Obstacle::draw()
 {
 	DrawRectangle((int)rec.x, (int)rec.y, (int)rec.width, (int)rec.height, BLUE);
 }
+
+Rectangle Obstacle::getRec()
+{
+	return rec;
+}
+

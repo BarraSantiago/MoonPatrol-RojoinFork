@@ -10,4 +10,5 @@ public:
 	~Obstacle();
 	void changePosX();
 	void draw();
+	Rectangle getRec();
 };
