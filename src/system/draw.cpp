@@ -6,33 +6,37 @@ static int height;
 
 void updateScale()
 {
-	width=	GetScreenWidth() * 1 / 1024	 ;
-	height =GetScreenHeight() * 1 / 768	 ;
+	width = GetScreenWidth() * 1 / 1024;
+	height = GetScreenHeight() * 1 / 768;
 }
-void drawTexture(Texture2D texture,Vector2 position,float rotation,float scale,Color tint)
+void drawTexture(Texture2D texture, Vector2 position, float rotation, float scale, Color tint)
 {
 
 	DrawTextureEx(texture, position, rotation, scale, tint);
 
 }
-void drawTexture(Texture2D texture,Rectangle source,Rectangle dest, Vector2 position, float rotation,float scale, Color tint)
+void drawTexture(Texture2D texture, Rectangle source, Rectangle dest, Vector2 position, float rotation, float scale, Color tint)
 {
 	position.x *= scale;
 	position.y *= scale;
-	DrawTextureTiled(texture, source, dest, position, rotation,scale, tint);
+	DrawTextureTiled(texture, source, dest, position, rotation, scale, tint);
 
 }
 
-void drawText(const char* text,float posX,float posY, float fontSize,Color color,Font font)
+void drawText(const char* text, float posX, float posY, float fontSize, Color color, Font font)
 {
 
-	DrawTextEx(font, text, { posX, posY }, fontSize,10, color);
+	DrawTextEx(font, text, { posX, posY }, fontSize, 10, color);
 }
- int getScaleWidth()
+void drawText(const char* text, float posX, float posY, float fontSize, Color color)
+{
+	DrawText(text, posX, posY, fontSize, color);
+}
+int getScaleWidth()
 {
 	return width;
 }
- int getScaleHeight()
+int getScaleHeight()
 {
 	return height;
 }
