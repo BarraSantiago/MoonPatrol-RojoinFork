@@ -5,6 +5,7 @@
 Character::Character()
 {
 	rec = { 200.0f,600.0f,50,50 };
+	isPlayerDead = false;
 }
 
 Character::~Character()

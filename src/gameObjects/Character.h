@@ -5,6 +5,7 @@ class Character
 {
 private:
 	Rectangle rec;
+	bool isPlayerDead;
 public:
 	Character();
 	~Character();
