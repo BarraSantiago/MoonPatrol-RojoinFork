@@ -4,7 +4,7 @@
 
 Character::Character()
 {
-	rec = { 200.0f,400.0f,50,50 };
+	rec = { 200.0f,600.0f,50,50 };
 }
 
 Character::~Character()
