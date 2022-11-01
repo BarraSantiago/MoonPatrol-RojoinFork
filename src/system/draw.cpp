@@ -28,7 +28,7 @@ void drawText(const char* text, float posX, float posY, float fontSize, Color co
 
 	DrawTextEx(font, text, { posX, posY }, fontSize, 10, color);
 }
-void drawText(const char* text, float posX, float posY, float fontSize, Color color)
+void drawText(const char* text, int posX, int posY, int fontSize, Color color)
 {
 	DrawText(text, posX, posY, fontSize, color);
 }
