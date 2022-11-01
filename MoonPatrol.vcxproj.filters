@@ -53,7 +53,7 @@
     <ClCompile Include="src\gameObjects\Character.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="Obstacle.cpp">
+    <ClCompile Include="src\gameObjects\Obstacle.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
   </ItemGroup>
@@ -106,7 +106,7 @@
     <ClInclude Include="src\gameObjects\Character.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="Obstacle.h">
+    <ClInclude Include="src\gameObjects\Obstacle.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
   </ItemGroup>
