@@ -33,3 +33,8 @@ Rectangle Character::getRec()
 {
 	return rec;
 }
+
+bool Character::isPlayerDead()
+{
+	return playerDead;
+}

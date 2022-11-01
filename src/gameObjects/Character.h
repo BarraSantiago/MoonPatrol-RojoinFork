@@ -5,12 +5,13 @@ class Character
 {
 private:
 	Rectangle rec;
-	bool isPlayerDead;
+	bool playerDead;
 public:
 	Character();
 	~Character();
 	void changePos();
 	void drawCharacter();
 	Rectangle getRec();
+	bool isPlayerDead();
 };
 
