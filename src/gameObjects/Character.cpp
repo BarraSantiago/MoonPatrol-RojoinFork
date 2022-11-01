@@ -38,3 +38,8 @@ bool Character::isPlayerDead()
 {
 	return playerDead;
 }
+
+void Character::setPlayerDeadStatus(bool status)
+{
+	playerDead = status;
+}

@@ -13,5 +13,6 @@ public:
 	void drawCharacter();
 	Rectangle getRec();
 	bool isPlayerDead();
+	void setPlayerDeadStatus(bool status);
 };
 
