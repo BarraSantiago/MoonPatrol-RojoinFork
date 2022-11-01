@@ -27,3 +27,8 @@ void Character::drawCharacter()
 {
 	DrawRectangle((int)rec.x, (int)rec.y, (int)rec.width, (int)rec.height, RED);
 }
+
+Rectangle Character::getRec()
+{
+	return rec;
+}

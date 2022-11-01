@@ -10,5 +10,6 @@ public:
 	~Character();
 	void changePos();
 	void drawCharacter();
+	Rectangle getRec();
 };
 
