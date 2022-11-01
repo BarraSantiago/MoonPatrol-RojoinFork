@@ -9,5 +9,5 @@ public:
 	Obstacle();
 	~Obstacle();
 	void changePosX();
-	
+	void draw();
 };

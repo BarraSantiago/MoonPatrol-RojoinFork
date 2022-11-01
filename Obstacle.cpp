@@ -14,6 +14,11 @@ void Obstacle::changePosX()
 	rec.x -= 200 * GetFrameTime();
 	if (rec.x<0)
 	{
-		rec.x = GetScreenWidth();
+		rec.x = (float)GetScreenWidth();
 	}
+}
+
+void Obstacle::draw()
+{
+	DrawRectangle((int)rec.x, (int)rec.y, (int)rec.width, (int)rec.height, BLUE);
 }
