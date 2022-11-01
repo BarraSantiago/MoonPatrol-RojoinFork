@@ -53,6 +53,9 @@
     <ClCompile Include="src\gameObjects\Character.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="Obstacle.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\gameLogic\collisionLogic.h">
@@ -101,6 +104,9 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="src\gameObjects\Character.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Obstacle.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
   </ItemGroup>

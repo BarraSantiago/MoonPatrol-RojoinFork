@@ -171,6 +171,7 @@ XCOPY "$(SolutionDir)resources" "$(SolutionDir)bin\$(Platform)\$(Configuration)\
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="src\gameLogic\mouseInputs.cpp" />
     <ClCompile Include="src\gameObjects\Character.cpp" />
     <ClCompile Include="src\gameScreens\button.cpp" />
@@ -187,6 +188,7 @@ XCOPY "$(SolutionDir)resources" "$(SolutionDir)bin\$(Platform)\$(Configuration)\
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h" />
+    <ClInclude Include="Obstacle.h" />
     <ClInclude Include="src\gameLogic\collisionLogic.h" />
     <ClInclude Include="src\gameLogic\mouseInputs.h" />
     <ClInclude Include="src\gameObjects\Character.h" />
