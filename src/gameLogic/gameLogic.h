@@ -4,4 +4,4 @@
 
 
 
-bool isCharacterObstacleColliding(Character character, Obstacle obstacle);
+bool isCharacterObstacleColliding(Character* character, Obstacle* obstacle);
