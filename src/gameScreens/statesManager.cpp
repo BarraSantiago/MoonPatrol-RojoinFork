@@ -5,6 +5,7 @@
 #include "system/draw.h"
 #include "gameStates.h"
 #include "gameObjects/Character.h"
+#include "gameObjects/Obstacle.h"
 GameStates gameStates;
 
 Music mainTheme;
@@ -22,6 +23,8 @@ int mousePosY;
  void loadAudios();
  
  Character* character = new Character();
+ Obstacle* obstacle = new Obstacle();
+
 void initProgram()
 {
 	setGameState(GameStates::InitialAnimation);
@@ -50,6 +53,7 @@ void initProgram()
  void logicProgram()
 {
 	 character->changePos();
+	 obstacle->changePosX();
 	
 }
 
@@ -59,6 +63,7 @@ void drawProgram()
 	ClearBackground(BLACK);
 	
 	character->drawCharacter();
+	obstacle->draw();
 	EndDrawing();
 }
 
