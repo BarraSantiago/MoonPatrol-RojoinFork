@@ -2,15 +2,9 @@
 #include <raylib.h>
 
 #include "statesManager.h"
-#include "GameStates.h"
-#include "menuState.h"
-#include "rulesState.h"
-#include "creditsState.h"
-#include "initialAnimationScreen.h"
-#include "optionsState.h"
 #include "system/draw.h"
-
-
+#include "gameStates.h"
+#include "gameObjects/Character.h"
 GameStates gameStates;
 
 Music mainTheme;
@@ -26,7 +20,8 @@ int mousePosY;
  void unLoadTextures();
  void unLoadAudio();
  void loadAudios();
-
+ 
+ Character* character = new Character();
 void initProgram()
 {
 	setGameState(GameStates::InitialAnimation);
@@ -36,7 +31,6 @@ void initProgram()
 	loadResources();
 	SetExitKey(NULL);
 	SetWindowMinSize(1024, 768);
-
 
 	isProgramRunning = true;
 
@@ -55,32 +49,8 @@ void initProgram()
 
  void logicProgram()
 {
-
-	switch (gameStates)
-	{
-	case GameStates::InitialAnimation:
-		statesInitialAnimation();
-		break;
-	case GameStates::Menu:
-		statesMenu(gameStates);
-		break;
-	case GameStates::Game:
-		//GameLogic::playGame();
-		break;
-	case GameStates::Rules:
-		statesRules();
-		break;
-	case GameStates::Options:
-		statesOptions();
-		break;
-	case GameStates::Credits:
-		statesCredits();
-		break;
-	case GameStates::Exit:
-		isProgramRunning = false;
-		break;
-
-	}
+	 character->changePos();
+	
 }
 
 void drawProgram()
@@ -88,30 +58,7 @@ void drawProgram()
 	BeginDrawing();
 	ClearBackground(BLACK);
 	
-	switch (gameStates)
-	{
-	case GameStates::InitialAnimation:
-		drawInitialAnimation();
-		break;
-	case GameStates::Menu:
-		drawMenu();
-		break;
-	case GameStates::Game:
-		//GameLogic::drawGame();
-		break;
-	case GameStates::Rules:
-		drawRules();
-		break;
-	case GameStates::Options:
-		drawOptions();
-		break;
-	case GameStates::Credits:
-		drawCredits();
-		break;
-	case GameStates::Exit:
-		break;
-	}
-	
+	character->drawCharacter();
 	EndDrawing();
 }
 
@@ -141,7 +88,6 @@ void unLoadAudio()
 
 void unLoadResources()
 {
-	//UnloadFont(customFont);
 	unLoadAudio();
 	unLoadTextures();
 
