@@ -35,3 +35,25 @@ bool isPointRecColliding(Vector2 mouse, Rectangle rec) //Check if works
 		return false;
 	}
 }
+
+bool isRecRecColliding(Rectangle rec, Rectangle rec2)
+{
+
+	float rec1RightEdge = rec.x + rec.width;
+	float rec1LeftEdge = rec.x;
+	float rec1UpEdge = rec.y;
+	float rec1DownEdge = rec.y + rec.height;
+	
+	float rec2RightEdge = rec2.x + rec2.width;
+	float rec2LeftEdge = rec2.x;
+	float rec2UpEdge = rec2.y;
+	float rec2DownEdge = rec2.y + rec2.height;
+
+	if (rec1RightEdge >= rec2LeftEdge &&     // r1 right edge past r2 left
+		rec1LeftEdge <= rec2RightEdge &&       // r1 left edge past r2 right
+		rec1DownEdge >= rec2UpEdge &&       // r1 top edge past r2 bottom
+		rec1UpEdge <= rec2DownEdge) {       // r1 bottom edge past r2 top
+		return true;
+	}
+	return false;
+}
