@@ -8,6 +8,6 @@ private:
 public:
 	Obstacle();
 	~Obstacle();
-
-
+	void changePosX();
+	
 };

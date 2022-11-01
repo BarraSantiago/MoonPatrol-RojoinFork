@@ -11,5 +11,9 @@ Obstacle::~Obstacle()
 }
 void Obstacle::changePosX()
 {
-	
+	rec.x -= 200 * GetFrameTime();
+	if (rec.x<0)
+	{
+		rec.x = GetScreenWidth();
+	}
 }
