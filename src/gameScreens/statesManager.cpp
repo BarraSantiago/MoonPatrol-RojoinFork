@@ -75,8 +75,9 @@ void drawProgram()
 	}
 	else
 	{
-		drawText("GameOver", 720, 720, 40, RED);
+		drawText("GameOver", 620, 380, 40, RED);
 	}
+		drawText("Version:0.1", 720, 720, 40, RAYWHITE);
 	EndDrawing();
 }
 
