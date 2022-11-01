@@ -15,17 +15,17 @@ bool isProgramRunning = true;
 
 int mousePosX;
 int mousePosY;
- void logicProgram();
- void drawProgram();
- void loadResources();
- void unLoadResources();
- void loadTextures();
- void unLoadTextures();
- void unLoadAudio();
- void loadAudios();
- 
- Character* character = new Character();
- Obstacle* obstacle = new Obstacle();
+void logicProgram();
+void drawProgram();
+void loadResources();
+void unLoadResources();
+void loadTextures();
+void unLoadTextures();
+void unLoadAudio();
+void loadAudios();
+
+Character* character = new Character();
+Obstacle* obstacle = new Obstacle();
 
 void initProgram()
 {
@@ -52,32 +52,32 @@ void initProgram()
 	CloseAudioDevice();
 }
 
- void logicProgram()
+void logicProgram()
 {
-	 if (character->isPlayerDead() != true)
-	 {
-	 character->changePos();
-	 obstacle->changePosX();
+	if (character->isPlayerDead() != true)
+	{
+		character->changePos();
+		obstacle->changePosX();
 
-	 }
-	 character->setPlayerDeadStatus(isCharacterObstacleColliding(character,obstacle));
+	}
+	character->setPlayerDeadStatus(isCharacterObstacleColliding(character, obstacle));
 }
 
 void drawProgram()
 {
 	BeginDrawing();
 	ClearBackground(BLACK);
-	
+
 	if (!character->isPlayerDead())
 	{
 		character->drawCharacter();
-	obstacle->draw();
+		obstacle->draw();
 	}
 	else
 	{
 		drawText("GameOver", 620, 380, 40, RED);
 	}
-		drawText("Version:0.1", 720, 720, 40, RAYWHITE);
+	drawText("Version:0.1", 720, 720, 40, RAYWHITE);
 	EndDrawing();
 }
 
@@ -86,12 +86,12 @@ void loadAudios()
 
 }
 
- void loadTextures()
+void loadTextures()
 {
 
 }
 
- void loadResources()
+void loadResources()
 {
 
 }
@@ -100,9 +100,9 @@ void unLoadAudio()
 {
 
 }
- void unLoadTextures()
+void unLoadTextures()
 {
-	
+
 }
 
 void unLoadResources()
