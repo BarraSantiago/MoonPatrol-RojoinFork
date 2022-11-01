@@ -6,6 +6,8 @@
 #include "gameStates.h"
 #include "gameObjects/Character.h"
 #include "gameObjects/Obstacle.h"
+#include "gameLogic/gameLogic.h"
+
 GameStates gameStates;
 
 Music mainTheme;
@@ -52,9 +54,13 @@ void initProgram()
 
  void logicProgram()
 {
+	 if (character->isPlayerDead() != true)
+	 {
 	 character->changePos();
 	 obstacle->changePosX();
-	
+
+	 }
+	 character->setPlayerDeadStatus(isCharacterObstacleColliding(character,obstacle));
 }
 
 void drawProgram()
@@ -62,8 +68,15 @@ void drawProgram()
 	BeginDrawing();
 	ClearBackground(BLACK);
 	
-	character->drawCharacter();
+	if (!character->isPlayerDead())
+	{
+		character->drawCharacter();
 	obstacle->draw();
+	}
+	else
+	{
+		drawText("GameOver", 720, 720, 40, RED);
+	}
 	EndDrawing();
 }
 
