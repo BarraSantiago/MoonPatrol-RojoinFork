@@ -4,9 +4,11 @@
 #include "statesManager.h"
 #include "system/draw.h"
 #include "gameStatesEnum.h"
-#include "gameObjects/Character.h"
-#include "gameObjects/Obstacle.h"
-#include "gameLogic/gameLogic.h"
+#include "gameScreens/menuState.h"
+#include "gameScreens/gameplayState.h"
+#include "gameScreens/optionsState.h"
+#include "gameScreens/creditsState.h"
+
 
 
 GameStates gameStates;
@@ -25,8 +27,7 @@ void unLoadTextures();
 void unLoadAudio();
 void loadAudios();
 
-Character* character = new Character();
-Obstacle* obstacle = new Obstacle();
+
 
 void initProgram()
 {
@@ -60,21 +61,17 @@ void logicProgram()
 	case GameStates::InitialAnimation:
 		break;
 	case GameStates::Menu:
+		statesMenu(gameStates);
 		break;
 	case GameStates::Game:
-		if (character->isPlayerDead() != true)
-		{
-			character->changePos();
-			obstacle->changePosX();
-
-		}
-		character->setPlayerDeadStatus(isCharacterObstacleColliding(character, obstacle));
+		gameLogic();
 		break;
 	case GameStates::Rules:
 		break;
 	case GameStates::Options:
 		break;
 	case GameStates::Credits:
+		statesCredits();
 		break;
 	case GameStates::Exit:
 		break;
@@ -87,16 +84,28 @@ void drawProgram()
 {
 	BeginDrawing();
 	ClearBackground(BLACK);
+	switch (gameStates)
+	{
+	case GameStates::InitialAnimation:
+		break;
+	case GameStates::Menu:
+		drawMenu();
+		break;
+	case GameStates::Game:
+		drawGame();
+		break;
+	case GameStates::Rules:
+		break;
+	case GameStates::Options:
+		break;
+	case GameStates::Credits:
+		drawCredits();
+		break;
+	case GameStates::Exit:
+		break;
+	default:;
+	}
 
-	if (!character->isPlayerDead())
-	{
-		character->drawCharacter();
-		obstacle->draw();
-	}
-	else
-	{
-		drawText("GameOver", 620, 380, 40, RED);
-	}
 	drawText("Version:0.2", 720, 720, 40, RAYWHITE);
 	EndDrawing();
 }
