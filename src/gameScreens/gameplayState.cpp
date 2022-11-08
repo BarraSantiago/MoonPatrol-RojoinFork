@@ -21,3 +21,9 @@ void gameLogic()
 	}
 	character->setPlayerDeadStatus(isCharacterObstacleColliding(character, obstacle));
 }
+
+void drawGame()
+{
+	character->drawCharacter();
+	obstacle->draw();
+}

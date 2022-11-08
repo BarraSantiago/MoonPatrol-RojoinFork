@@ -2,3 +2,4 @@
 
 
 void gameLogic();
+void drawGame();
