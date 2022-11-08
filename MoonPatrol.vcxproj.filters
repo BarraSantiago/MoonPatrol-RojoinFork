@@ -62,7 +62,7 @@
     <ClCompile Include="src\gameScreens\creditsState.cpp">
       <Filter>GameScenes</Filter>
     </ClCompile>
-    <ClCompile Include="src\gameScreens\gameStates.cpp">
+    <ClCompile Include="src\gameScreens\gameStatesEnum.cpp">
       <Filter>GameScenes</Filter>
     </ClCompile>
   </ItemGroup>
@@ -115,7 +115,7 @@
     <ClInclude Include="src\gameScreens\creditsState.h">
       <Filter>GameScenes</Filter>
     </ClInclude>
-    <ClInclude Include="src\gameScreens\gameStates.h">
+    <ClInclude Include="src\gameScreens\gameStatesEnum.h">
       <Filter>GameScenes</Filter>
     </ClInclude>
   </ItemGroup>
