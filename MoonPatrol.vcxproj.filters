@@ -65,6 +65,9 @@
     <ClCompile Include="src\gameScreens\gameStatesEnum.cpp">
       <Filter>GameScenes</Filter>
     </ClCompile>
+    <ClCompile Include="src\gameScreens\gameplayState.cpp">
+      <Filter>GameScenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\gameLogic\collisionLogic.h">
@@ -116,6 +119,9 @@
       <Filter>GameScenes</Filter>
     </ClInclude>
     <ClInclude Include="src\gameScreens\gameStatesEnum.h">
+      <Filter>GameScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gameScreens\gameplayState.h">
       <Filter>GameScenes</Filter>
     </ClInclude>
   </ItemGroup>

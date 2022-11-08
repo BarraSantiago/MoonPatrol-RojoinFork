@@ -176,6 +176,7 @@
     <ClCompile Include="src\gameObjects\Obstacle.cpp" />
     <ClCompile Include="src\gameScreens\button.cpp" />
     <ClCompile Include="src\gameScreens\creditsState.cpp" />
+    <ClCompile Include="src\gameScreens\gameplayState.cpp" />
     <ClCompile Include="src\gameScreens\gameStatesEnum.cpp" />
     <ClCompile Include="src\gameScreens\initialAnimationScreen.cpp" />
     <ClCompile Include="src\gameScreens\menuState.cpp" />
@@ -195,6 +196,7 @@
     <ClInclude Include="src\gameObjects\Obstacle.h" />
     <ClInclude Include="src\gameScreens\button.h" />
     <ClInclude Include="src\gameScreens\creditsState.h" />
+    <ClInclude Include="src\gameScreens\gameplayState.h" />
     <ClInclude Include="src\gameScreens\gameStatesEnum.h" />
     <ClInclude Include="src\gameScreens\initialAnimationScreen.h" />
     <ClInclude Include="src\gameScreens\menuState.h" />
