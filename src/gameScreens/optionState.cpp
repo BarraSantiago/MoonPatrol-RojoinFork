@@ -1,7 +1,7 @@
 #include <raylib.h>
 
 #include "button.h"
-#include "GameStates.h"
+#include "gameStatesEnum.h"
 #include "optionsState.h"
 
 
@@ -96,11 +96,7 @@ void statesOptions()
 }
 void drawOptions()
 {
-
-
-
 	ClearBackground(BLACK);
-
 	drawButton(fullScreen);
 	drawButton(changeScreen);
 	drawButton(backButton);

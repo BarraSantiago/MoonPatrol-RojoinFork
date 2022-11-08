@@ -1,7 +1,7 @@
 #include <string>
 
 #include "button.h"
-#include "GameStates.h"
+#include "gameStatesEnum.h"
 #include "menuState.h"
 #include "raylib.h"
 #include  "system/collisionFunctions.h"

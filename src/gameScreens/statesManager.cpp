@@ -3,10 +3,11 @@
 
 #include "statesManager.h"
 #include "system/draw.h"
-#include "gameStates.h"
+#include "gameStatesEnum.h"
 #include "gameObjects/Character.h"
 #include "gameObjects/Obstacle.h"
 #include "gameLogic/gameLogic.h"
+
 
 GameStates gameStates;
 
@@ -29,7 +30,7 @@ Obstacle* obstacle = new Obstacle();
 
 void initProgram()
 {
-	setGameState(GameStates::InitialAnimation);
+	setGameState(GameStates::Menu);
 	SetRandomSeed(static_cast<unsigned int>(time(NULL)));
 	InitWindow(1024, 768, "MoonPatrol");
 	InitAudioDevice();
@@ -54,13 +55,32 @@ void initProgram()
 
 void logicProgram()
 {
-	if (character->isPlayerDead() != true)
+	switch (gameStates)
 	{
-		character->changePos();
-		obstacle->changePosX();
+	case GameStates::InitialAnimation:
+		break;
+	case GameStates::Menu:
+		break;
+	case GameStates::Game:
+		if (character->isPlayerDead() != true)
+		{
+			character->changePos();
+			obstacle->changePosX();
 
+		}
+		character->setPlayerDeadStatus(isCharacterObstacleColliding(character, obstacle));
+		break;
+	case GameStates::Rules:
+		break;
+	case GameStates::Options:
+		break;
+	case GameStates::Credits:
+		break;
+	case GameStates::Exit:
+		break;
+	default:;
 	}
-	character->setPlayerDeadStatus(isCharacterObstacleColliding(character, obstacle));
+
 }
 
 void drawProgram()
@@ -77,7 +97,7 @@ void drawProgram()
 	{
 		drawText("GameOver", 620, 380, 40, RED);
 	}
-	drawText("Version:0.1", 720, 720, 40, RAYWHITE);
+	drawText("Version:0.2", 720, 720, 40, RAYWHITE);
 	EndDrawing();
 }
 

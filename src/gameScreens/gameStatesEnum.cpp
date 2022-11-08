@@ -1,4 +1,4 @@
-#include "GameStates.h"
+#include "gameStatesEnum.h"
 
 extern GameStates gameStates;
 void setGameState(GameStates newState)
