@@ -6,6 +6,7 @@ class Character
 private:
 	Rectangle rec;
 	bool playerDead;
+	bool jump;
 public:
 	Character();
 	~Character();
