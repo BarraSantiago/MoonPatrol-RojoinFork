@@ -11,6 +11,7 @@ public:
 	~Character();
 	void changePos();
 	void draw();
+	void update();
 	Rectangle getRec();
 	bool isPlayerDead();
 	void setPlayerDeadStatus(bool status);

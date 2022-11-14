@@ -24,9 +24,21 @@ void Character::changePos()
 	}
 }
 
-void Character::drawCharacter()
+void Character::draw()
 {
 	DrawRectangle((int)rec.x, (int)rec.y, (int)rec.width, (int)rec.height, RED);
+}
+
+void Character::update()
+{
+	if (rec.y <= 600.0f)
+	{
+		rec.y += 9.86f * GetFrameTime()*1.0f;
+	}
+	else if (rec.y > 600.0f)
+	{
+		rec.y = 600.0f;
+	}
 }
 
 Rectangle Character::getRec()
