@@ -24,6 +24,6 @@ void gameLogic()
 
 void drawGame()
 {
-	character->drawCharacter();
+	character->draw();
 	obstacle->draw();
 }

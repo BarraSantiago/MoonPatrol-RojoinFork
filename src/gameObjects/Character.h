@@ -10,7 +10,7 @@ public:
 	Character();
 	~Character();
 	void changePos();
-	void drawCharacter();
+	void draw();
 	Rectangle getRec();
 	bool isPlayerDead();
 	void setPlayerDeadStatus(bool status);
