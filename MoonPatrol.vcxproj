@@ -172,6 +172,7 @@
   <ItemGroup>
     <ClCompile Include="src\gameLogic\gameLogic.cpp" />
     <ClCompile Include="src\gameLogic\mouseInputs.cpp" />
+    <ClCompile Include="src\gameObjects\bullets.cpp" />
     <ClCompile Include="src\gameObjects\Character.cpp" />
     <ClCompile Include="src\gameObjects\Obstacle.cpp" />
     <ClCompile Include="src\gameScreens\button.cpp" />
@@ -191,6 +192,7 @@
     <ClInclude Include="src\gameLogic\collisionLogic.h" />
     <ClInclude Include="src\gameLogic\gameLogic.h" />
     <ClInclude Include="src\gameLogic\mouseInputs.h" />
+    <ClInclude Include="src\gameObjects\bullets.h" />
     <ClInclude Include="src\gameObjects\Character.h" />
     <ClInclude Include="src\gameObjects\gameObjectsEnums.h" />
     <ClInclude Include="src\gameObjects\Obstacle.h" />
