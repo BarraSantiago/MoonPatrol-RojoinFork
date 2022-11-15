@@ -7,6 +7,11 @@
 
 Character* character = new Character();
 Obstacle* obstacle = new Obstacle();
+
+Texture2D paralaxBackground;
+Texture2D paralaxMidground;
+Texture2D paralaxNearForeground;
+
 void gameLogic()
 {
 	if (character->isPlayerDead() != true)
@@ -23,6 +28,14 @@ void gameLogic()
 	}
 	character->setPlayerDeadStatus(isCharacterObstacleColliding(character, obstacle));
 }
+
+void initTextures()
+{
+	paralaxBackground = LoadTexture("res/parallax-mountain-bg.png");
+	paralaxMidground = LoadTexture("res/parallax-mountain-mountains.png");
+	paralaxMidground = LoadTexture("res/parallax-mountain-foreground-trees.png");
+}
+
 
 void drawGame()
 {
