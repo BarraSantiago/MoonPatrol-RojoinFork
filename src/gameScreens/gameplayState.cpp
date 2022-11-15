@@ -1,7 +1,7 @@
 #include "gameplayState.h"
 
 #include <iostream>
-
+#include "system/draw.h"
 #include "gameLogic/gameLogic.h"
 #include "gameObjects/Character.h"
 #include "gameObjects/Obstacle.h"
@@ -80,16 +80,16 @@ void unloadTextures()
 }
 void drawGame()
 {
-	DrawTextureEx(paralaxBackground, { scrollingBack, 0 }, 0.0f, 5.0f, WHITE);
-	DrawTextureEx(paralaxBackground, { paralaxBackground.width * 2 + scrollingBack, 0 }, 0.0f, 5.0f, WHITE);
+	drawTexture(paralaxBackground, { scrollingBack, 0 }, 0.0f, 5.0f, WHITE);
+	drawTexture(paralaxBackground, { paralaxBackground.width * 2 + scrollingBack, 0 }, 0.0f, 5.0f, WHITE);
 
-	DrawTextureEx(paralaxMidground, { scrollingMid, 20 }, 0.0f, 4.0f, WHITE);
-	DrawTextureEx(paralaxMidground, { paralaxMidground.width * 2 + scrollingMid, 20 }, 0.0f, 4.0f, WHITE);
+	drawTexture(paralaxMidground, { scrollingMid, 20 }, 0.0f, 4.0f, WHITE);
+	drawTexture(paralaxMidground, { paralaxMidground.width * 2 + scrollingMid, 20 }, 0.0f, 4.0f, WHITE);
 
 	character->draw();
 	obstacle->draw();
 	std::cout << paralaxNearForeground.width * 2 + scrollingFore << std::endl;
-	DrawTextureEx(paralaxNearForeground, { scrollingFore, 70 }, 0.0f, 4.0f, WHITE);
+	drawTexture(paralaxNearForeground, { scrollingFore, 70 }, 0.0f, 4.0f, WHITE);
 	//DrawTextureEx(paralaxNearForeground, { paralaxNearForeground.width * 2 + scrollingFore, 70 }, 0.0f, 4.0f, WHITE);
 
 
