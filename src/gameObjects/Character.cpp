@@ -6,6 +6,7 @@ Character::Character()
 {
 	rec = { 200.0f,600.0f,50,50 };
 	playerDead = false;
+	jumpState = false;
 	gravity = 200.0f;
 }
 
