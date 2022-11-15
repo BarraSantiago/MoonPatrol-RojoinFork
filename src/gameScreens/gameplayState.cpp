@@ -18,6 +18,7 @@ void gameLogic()
 	else
 	{
 		setGameState(GameStates::Menu);
+		character->setPlayerDeadStatus(false);
 	}
 	character->setPlayerDeadStatus(isCharacterObstacleColliding(character, obstacle));
 }
