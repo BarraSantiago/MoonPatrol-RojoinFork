@@ -8,12 +8,14 @@
 Character* character = new Character();
 Obstacle* obstacle = new Obstacle();
 
+bool firstTime;
 Texture2D paralaxBackground;
 Texture2D paralaxMidground;
 Texture2D paralaxNearForeground;
 
 void gameLogic()
 {
+	
 	if (character->isPlayerDead() != true)
 	{
 		character->changePos();
