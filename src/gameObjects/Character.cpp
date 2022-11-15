@@ -6,7 +6,7 @@ Character::Character()
 {
 	rec = { 200.0f,600.0f,50,50 };
 	playerDead = false;
-	gravity = 9.86f;
+	gravity = 200.0f;
 }
 
 Character::~Character()
@@ -15,13 +15,9 @@ Character::~Character()
 
 void Character::changePos()
 {
-	if (IsKeyPressed(KEY_DOWN) && rec.y == 400.0f)
+	 if (IsKeyPressed(KEY_UP) && rec.y >= 600.0f)
 	{
-		rec.y = 600.0f;
-	}
-	else if (IsKeyPressed(KEY_UP) && rec.y == 600.0f)
-	{
-		rec.y = 400.0f;
+		jump();
 	}
 }
 
@@ -32,9 +28,21 @@ void Character::draw()
 
 void Character::update()
 {
-	if (rec.y <= 600.0f)
+	static float jumpTimer = 0.8f;
+
+	if (jumpState)
 	{
-		rec.y += gravity * GetFrameTime()*1.0f;
+		jumpTimer -= GetFrameTime();
+		rec.y += GetFrameTime() * -gravity;
+		if (jumpTimer <= 0)
+		{
+			jumpState = false;
+			jumpTimer = 0.8f;
+		}
+	}
+	else if (rec.y <= 600.0f)
+	{
+		rec.y +=  GetFrameTime()*gravity;
 	}
 	else if (rec.y > 600.0f)
 	{
@@ -45,7 +53,6 @@ void Character::update()
 void Character::jump()
 {
 	jumpState = true;
-
 }
 
 Rectangle Character::getRec()
