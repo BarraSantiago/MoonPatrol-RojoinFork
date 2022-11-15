@@ -9,6 +9,12 @@ Obstacle::~Obstacle()
 {
 
 }
+
+void Obstacle::reset()
+{
+	rec = { 1280,600,75 ,150 };
+}
+
 void Obstacle::changePosX()
 {
 	rec.x -= 200 * GetFrameTime();

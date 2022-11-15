@@ -8,6 +8,7 @@ private:
 public:
 	Obstacle();
 	~Obstacle();
+	void reset();
 	void changePosX();
 	void draw();
 	Rectangle getRec();
