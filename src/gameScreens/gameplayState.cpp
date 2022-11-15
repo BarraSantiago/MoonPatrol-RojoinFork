@@ -13,7 +13,7 @@ void gameLogic()
 	{
 		character->changePos();
 		obstacle->changePosX();
-
+		character->update();
 	}
 	else
 	{
