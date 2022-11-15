@@ -19,6 +19,8 @@ float scrollingMid = 0.0f;
 float scrollingFore = 0.0f;
 void initTextures();
 void unloadTextures();
+void backToMenu();
+
 void gameLogic()
 {
 	scrollingBack -= 0.1f* GetFrameTime() * 200.0f;
@@ -28,6 +30,8 @@ void gameLogic()
 	if (scrollingBack <= -paralaxBackground.width * 2 ) scrollingBack = 0;
 	if (scrollingMid <= -paralaxMidground.width * 2) scrollingMid = 0;
 	if (scrollingFore <= -paralaxNearForeground.width * 2 ) scrollingFore = 0;
+
+	backToMenu();
 	if (firstTime)
 	{
 		initTextures();
@@ -50,6 +54,17 @@ void gameLogic()
 	character->setPlayerDeadStatus(isCharacterObstacleColliding(character, obstacle));
 }
 
+void backToMenu()
+{
+	if (IsKeyDown(KEY_ESCAPE))
+	{
+		setGameState(GameStates::Menu);
+		character->reset();
+		obstacle->reset();
+		firstTime = true;
+		unloadTextures();
+	}
+}
 void initTextures()
 {
 	paralaxBackground = LoadTexture("res/parallax-mountain-bg.png");
