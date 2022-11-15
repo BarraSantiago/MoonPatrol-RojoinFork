@@ -42,6 +42,12 @@ void Character::update()
 	}
 }
 
+void Character::jump()
+{
+	jumpState = true;
+
+}
+
 Rectangle Character::getRec()
 {
 	return rec;
