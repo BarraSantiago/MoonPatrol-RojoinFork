@@ -74,6 +74,7 @@ void logicProgram()
 		statesCredits();
 		break;
 	case GameStates::Exit:
+		isProgramRunning = false;
 		break;
 	default:;
 	}
