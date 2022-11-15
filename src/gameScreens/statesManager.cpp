@@ -4,6 +4,7 @@
 #include "statesManager.h"
 #include "system/draw.h"
 #include "gameStatesEnum.h"
+#include "rulesState.h"
 #include "gameScreens/menuState.h"
 #include "gameScreens/gameplayState.h"
 #include "gameScreens/optionsState.h"
@@ -67,6 +68,7 @@ void logicProgram()
 		gameLogic();
 		break;
 	case GameStates::Rules:
+		statesRules();
 		break;
 	case GameStates::Options:
 		break;
@@ -96,6 +98,7 @@ void drawProgram()
 		drawGame();
 		break;
 	case GameStates::Rules:
+		drawRules();
 		break;
 	case GameStates::Options:
 		break;
