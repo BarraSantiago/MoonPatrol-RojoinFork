@@ -14,6 +14,14 @@ Character::~Character()
 {
 }
 
+void Character::reset()
+{
+	rec = { 200.0f,600.0f,50,50 };
+	playerDead = false;
+	jumpState = false;
+	gravity = 200.0f;
+}
+
 void Character::changePos()
 {
 	 if (IsKeyPressed(KEY_UP) && rec.y >= 600.0f)

@@ -11,6 +11,7 @@ private:
 public:
 	Character();
 	~Character();
+	void reset();
 	void changePos();
 	void draw();
 	void update();
