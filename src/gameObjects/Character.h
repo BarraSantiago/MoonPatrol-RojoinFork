@@ -6,7 +6,7 @@ class Character
 private:
 	Rectangle rec;
 	bool playerDead;
-	bool jump;
+	bool jumpState;
 	float gravity;
 public:
 	Character();
@@ -14,6 +14,7 @@ public:
 	void changePos();
 	void draw();
 	void update();
+	void jump();
 	Rectangle getRec();
 	bool isPlayerDead();
 	void setPlayerDeadStatus(bool status);
