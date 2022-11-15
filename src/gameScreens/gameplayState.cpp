@@ -1,5 +1,7 @@
 #include "gameplayState.h"
 
+#include <iostream>
+
 #include "gameLogic/gameLogic.h"
 #include "gameObjects/Character.h"
 #include "gameObjects/Obstacle.h"
@@ -12,11 +14,20 @@ bool firstTime = true;
 Texture2D paralaxBackground;
 Texture2D paralaxMidground;
 Texture2D paralaxNearForeground;
-
+float scrollingBack = 0.0f;
+float scrollingMid = 0.0f;
+float scrollingFore = 0.0f;
 void initTextures();
-
+void unloadTextures();
 void gameLogic()
 {
+	scrollingBack -= 0.1f* GetFrameTime() * 200.0f;
+	scrollingMid -= 0.5f * GetFrameTime() * 200.0f;
+	scrollingFore -= 1.0f* GetFrameTime() * 200.0f;
+
+	if (scrollingBack <= -paralaxBackground.width * 2 ) scrollingBack = 0;
+	if (scrollingMid <= -paralaxMidground.width * 2) scrollingMid = 0;
+	if (scrollingFore <= -paralaxNearForeground.width * 2 ) scrollingFore = 0;
 	if (firstTime)
 	{
 		initTextures();
@@ -33,8 +44,8 @@ void gameLogic()
 		setGameState(GameStates::Menu);
 		character->reset();
 		obstacle->reset();
-		firstTime = false;
-		void unloadTextures();
+		firstTime = true;
+		unloadTextures();
 	}
 	character->setPlayerDeadStatus(isCharacterObstacleColliding(character, obstacle));
 }
@@ -54,6 +65,17 @@ void unloadTextures()
 }
 void drawGame()
 {
+	DrawTextureEx(paralaxBackground, { scrollingBack, 0 }, 0.0f, 5.0f, WHITE);
+	DrawTextureEx(paralaxBackground, { paralaxBackground.width * 2 + scrollingBack, 0 }, 0.0f, 5.0f, WHITE);
+
+	DrawTextureEx(paralaxMidground, { scrollingMid, 20 }, 0.0f, 4.0f, WHITE);
+	DrawTextureEx(paralaxMidground, { paralaxMidground.width * 2 + scrollingMid, 20 }, 0.0f, 4.0f, WHITE);
+
 	character->draw();
 	obstacle->draw();
+	std::cout << paralaxNearForeground.width * 2 + scrollingFore << std::endl;
+	DrawTextureEx(paralaxNearForeground, { scrollingFore, 70 }, 0.0f, 4.0f, WHITE);
+	//DrawTextureEx(paralaxNearForeground, { paralaxNearForeground.width * 2 + scrollingFore, 70 }, 0.0f, 4.0f, WHITE);
+
+
 }
