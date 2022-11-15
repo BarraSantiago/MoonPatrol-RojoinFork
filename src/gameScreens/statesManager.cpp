@@ -71,6 +71,7 @@ void logicProgram()
 		statesRules();
 		break;
 	case GameStates::Options:
+		statesOptions();
 		break;
 	case GameStates::Credits:
 		statesCredits();
@@ -101,6 +102,7 @@ void drawProgram()
 		drawRules();
 		break;
 	case GameStates::Options:
+		drawOptions();
 		break;
 	case GameStates::Credits:
 		drawCredits();
