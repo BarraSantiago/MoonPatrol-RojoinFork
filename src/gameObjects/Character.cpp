@@ -6,6 +6,7 @@ Character::Character()
 {
 	rec = { 200.0f,600.0f,50,50 };
 	playerDead = false;
+	gravity = 9.86f;
 }
 
 Character::~Character()
@@ -33,7 +34,7 @@ void Character::update()
 {
 	if (rec.y <= 600.0f)
 	{
-		rec.y += 9.86f * GetFrameTime()*1.0f;
+		rec.y += gravity * GetFrameTime()*1.0f;
 	}
 	else if (rec.y > 600.0f)
 	{

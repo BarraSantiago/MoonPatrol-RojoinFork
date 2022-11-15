@@ -7,6 +7,7 @@ private:
 	Rectangle rec;
 	bool playerDead;
 	bool jump;
+	float gravity;
 public:
 	Character();
 	~Character();
