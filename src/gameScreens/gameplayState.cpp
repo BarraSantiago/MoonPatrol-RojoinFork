@@ -20,77 +20,81 @@ float scrollingFore = 0.0f;
 void initTextures();
 void unloadTextures();
 void backToMenu();
+void BackgroundParalax();
 
 void gameLogic()
 {
-	scrollingBack -= 0.1f* GetFrameTime() * 200.0f;
-	scrollingMid -= 0.5f * GetFrameTime() * 200.0f;
-	scrollingFore -= 1.0f* GetFrameTime() * 200.0f;
-
-	if (scrollingBack <= -paralaxBackground.width * 2 ) scrollingBack = 0;
-	if (scrollingMid <= -paralaxMidground.width * 2) scrollingMid = 0;
-	if (scrollingFore <= -paralaxNearForeground.width * 2 ) scrollingFore = 0;
-
-	backToMenu();
-	if (firstTime)
-	{
-		initTextures();
-		firstTime = false;
-	}
-	if (character->isPlayerDead() != true)
-	{
-		character->changePos();
-		obstacle->changePosX();
-		character->update();
-	}
-	else
-	{
-		setGameState(GameStates::Menu);
-		character->reset();
-		obstacle->reset();
-		firstTime = true;
-		unloadTextures();
-	}
-	character->setPlayerDeadStatus(isCharacterObstacleColliding(character, obstacle));
+    BackgroundParalax();
+    backToMenu();
+    if (firstTime)
+    {
+        initTextures();
+        firstTime = false;
+    }
+    if (!character->isAlive())
+    {
+        character->changePos();
+        obstacle->changePosX();
+        character->update();
+    }
+    else
+    {
+        setGameState(GameStates::Menu);
+        character->reset();
+        obstacle->reset();
+        firstTime = true;
+        unloadTextures();
+    }
+    character->SetHitPoints(isCharacterObstacleColliding(character, obstacle) ? -1 : 0);
 }
 
 void backToMenu()
 {
-	if (IsKeyDown(KEY_ESCAPE))
-	{
-		setGameState(GameStates::Menu);
-		character->reset();
-		obstacle->reset();
-		firstTime = true;
-		unloadTextures();
-	}
+    if (IsKeyDown(KEY_ESCAPE))
+    {
+        setGameState(GameStates::Menu);
+        character->reset();
+        obstacle->reset();
+        firstTime = true;
+        unloadTextures();
+    }
 }
+
 void initTextures()
 {
-	paralaxBackground = LoadTexture("res/parallax-mountain-bg.png");
-	paralaxMidground = LoadTexture("res/parallax-mountain-mountains.png");
-	paralaxNearForeground = LoadTexture("res/parallax-mountain-foreground-trees.png");
+    paralaxBackground = LoadTexture("res/parallax-mountain-bg.png");
+    paralaxMidground = LoadTexture("res/parallax-mountain-mountains.png");
+    paralaxNearForeground = LoadTexture("res/parallax-mountain-foreground-trees.png");
 }
 
 void unloadTextures()
 {
-	UnloadTexture(paralaxBackground);
-	UnloadTexture(paralaxMidground);
-	UnloadTexture(paralaxNearForeground);
+    UnloadTexture(paralaxBackground);
+    UnloadTexture(paralaxMidground);
+    UnloadTexture(paralaxNearForeground);
 }
+
 void drawGame()
 {
-	drawTexture(paralaxBackground, { scrollingBack, 0 }, 0.0f, 5.0f, WHITE);
-	drawTexture(paralaxBackground, { paralaxBackground.width * 2 + scrollingBack, 0 }, 0.0f, 5.0f, WHITE);
+    drawTexture(paralaxBackground, {scrollingBack, 0}, 0.0f, 5.0f, WHITE);
+    drawTexture(paralaxBackground, {paralaxBackground.width * 2 + scrollingBack, 0}, 0.0f, 5.0f, WHITE);
 
-	drawTexture(paralaxMidground, { scrollingMid, 20 }, 0.0f, 4.0f, WHITE);
-	drawTexture(paralaxMidground, { paralaxMidground.width * 2 + scrollingMid, 20 }, 0.0f, 4.0f, WHITE);
+    drawTexture(paralaxMidground, {scrollingMid, 20}, 0.0f, 4.0f, WHITE);
+    drawTexture(paralaxMidground, {paralaxMidground.width * 2 + scrollingMid, 20}, 0.0f, 4.0f, WHITE);
 
-	character->draw();
-	obstacle->draw();
-	std::cout << paralaxNearForeground.width * 2 + scrollingFore << std::endl;
-	drawTexture(paralaxNearForeground, { scrollingFore, 70 }, 0.0f, 4.0f, WHITE);
-	//DrawTextureEx(paralaxNearForeground, { paralaxNearForeground.width * 2 + scrollingFore, 70 }, 0.0f, 4.0f, WHITE);
+    character->draw();
+    obstacle->draw();
+    drawTexture(paralaxNearForeground, {scrollingFore, 70}, 0.0f, 4.0f, WHITE);
+    //DrawTextureEx(paralaxNearForeground, { paralaxNearForeground.width * 2 + scrollingFore, 70 }, 0.0f, 4.0f, WHITE);
+}
 
+void BackgroundParalax()
+{
+    scrollingBack -= 0.1f * GetFrameTime() * 200.0f;
+    scrollingMid -= 0.5f * GetFrameTime() * 200.0f;
+    scrollingFore -= 1.0f * GetFrameTime() * 200.0f;
 
+    if (scrollingBack <= -paralaxBackground.width * 2) scrollingBack = 0;
+    if (scrollingMid <= -paralaxMidground.width * 2) scrollingMid = 0;
+    if (scrollingFore <= -paralaxNearForeground.width * 2) scrollingFore = 0;
 }

@@ -1,5 +1,5 @@
 #pragma once
-#include "gameStatesEnum.h"
+#include "../gameStatesEnum.h"
 
 
 void statesMenu(GameStates& gamestate);

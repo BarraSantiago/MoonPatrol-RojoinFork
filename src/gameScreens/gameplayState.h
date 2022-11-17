@@ -1,5 +1,2 @@
-
-
-
 void gameLogic();
 void drawGame();

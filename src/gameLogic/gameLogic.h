@@ -3,5 +3,4 @@
 #include "system/collisionFunctions.h"
 
 
-
 bool isCharacterObstacleColliding(Character* character, Obstacle* obstacle);

@@ -3,7 +3,7 @@
 
 struct Circle
 {
-	Vector2 position;
-	float radius;
-
+    float x;
+    float y;
+    float radius;
 };
