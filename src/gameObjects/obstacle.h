@@ -14,7 +14,7 @@ public:
     void changePosX();
     void draw() const;
     Rectangle getRec() const;
-    Circle GetBody() const;
-    void SetY(float y_);
-    void SetX(float x_);
+    Circle getBody() const;
+    void setY(float y_);
+    void setX(float x_);
 };

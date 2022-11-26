@@ -1,8 +1,6 @@
-#include "Obstacle.h"
+#include "obstacle.h"
 
 #include <iostream>
-#include <ostream>
-
 #include "raylib.h"
 
 Obstacle::Obstacle()
@@ -12,7 +10,7 @@ Obstacle::Obstacle()
 
 Obstacle::~Obstacle()
 {
-    std::cout << "Character has been destroyed" <<std::endl;
+    std::cout << "Character has been destroyed" << std::endl;
 }
 
 void Obstacle::reset()
@@ -40,17 +38,17 @@ Rectangle Obstacle::getRec() const
     return rec;
 }
 
-Circle Obstacle::GetBody() const
+Circle Obstacle::getBody() const
 {
     return body;
 }
 
-void Obstacle::SetY(float y_)
+void Obstacle::setY(float y_)
 {
     body.y = y_;
 }
 
-void Obstacle::SetX(float x_)
+void Obstacle::setX(float x_)
 {
     body.x = x_;
 }

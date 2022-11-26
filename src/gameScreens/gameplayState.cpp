@@ -31,9 +31,9 @@ void gameLogic()
         initTextures();
         firstTime = false;
     }
-    if (!character->isAlive())
+    
+    if (character->IsAlive())
     {
-        character->changePos();
         obstacle->changePosX();
         character->update();
     }

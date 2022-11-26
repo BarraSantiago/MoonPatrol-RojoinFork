@@ -125,16 +125,16 @@ void loadResources()
 {
 }
 
+void unLoadResources()
+{
+    unLoadAudio();
+    unLoadTextures();
+}
+
 void unLoadAudio()
 {
 }
 
 void unLoadTextures()
 {
-}
-
-void unLoadResources()
-{
-    unLoadAudio();
-    unLoadTextures();
 }

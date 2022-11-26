@@ -1,5 +1,4 @@
 #pragma once
-#include "raylib.h"
 #include "system/circle.h"
 
 class Character
@@ -14,11 +13,10 @@ public:
     Character();
     ~Character();
     void reset();
-    void changePos();
-    void draw();
+    void draw() const;
     void update();
     void jump();
-    Circle GetBody() const;
+    Circle getBody() const;
     bool isAlive() const;
-    void SetHitPoints(int hpModifier);
+    void setHP(int hpModifier);
 };

@@ -2,5 +2,5 @@
 
 bool isCharacterObstacleColliding(Character* character, Obstacle* obstacle)
 {
-    return isCircleCircleColliding(character->GetBody(), obstacle->GetBody());
+    return isCircleCircleColliding(character->GetBody(), obstacle->getBody());
 }

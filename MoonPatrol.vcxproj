@@ -173,8 +173,8 @@
         <ClCompile Include="src\gameLogic\gameLogic.cpp" />
         <ClCompile Include="src\gameLogic\mouseInputs.cpp" />
         <ClCompile Include="src\gameObjects\bullets.cpp" />
-        <ClCompile Include="src\gameObjects\Character.cpp" />
-        <ClCompile Include="src\gameObjects\Obstacle.cpp" />
+        <ClCompile Include="src\gameObjects\character.cpp" />
+        <ClCompile Include="src\gameObjects\obstacle.cpp" />
         <ClCompile Include="src\gameScreens\button.cpp" />
         <ClCompile Include="src\gameScreens\gameplayState.cpp" />
         <ClCompile Include="src\gameScreens\gameStatesEnum.cpp" />
@@ -485,12 +485,11 @@
         <ClCompile Include="src\system\main.cpp" />
     </ItemGroup>
     <ItemGroup>
-        <ClInclude Include="src\gameLogic\collisionLogic.h" />
         <ClInclude Include="src\gameLogic\gameLogic.h" />
         <ClInclude Include="src\gameLogic\mouseInputs.h" />
         <ClInclude Include="src\gameObjects\bullets.h" />
-        <ClInclude Include="src\gameObjects\Character.h" />
-        <ClInclude Include="src\gameObjects\Obstacle.h" />
+        <ClInclude Include="src\gameObjects\character.h" />
+        <ClInclude Include="src\gameObjects\obstacle.h" />
         <ClInclude Include="src\gameScreens\button.h" />
         <ClInclude Include="src\gameScreens\gameplayState.h" />
         <ClInclude Include="src\gameScreens\gameStatesEnum.h" />
