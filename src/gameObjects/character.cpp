@@ -11,7 +11,9 @@ Character::Character()
     hp = 3;
     alive = true;
     jumpState = false;
-    gravity = 200.0f;
+    speed = static_cast<float>(GetScreenWidth()) / 2.0f;
+    gravity = speed;
+    floorLevel = GetScreenHeight() * 0.9287f - body.radius;
 }
 
 Character::~Character()
@@ -28,7 +30,7 @@ void Character::reset()
     alive = true;
     hp = 3;
     jumpState = false;
-    gravity = 200.0f;
+    gravity = speed;
 }
 
 
@@ -39,31 +41,44 @@ void Character::draw() const
 
 void Character::jump()
 {
-    jumpState = ((IsKeyPressed(KEY_W) || IsKeyPressed(KEY_UP)) && body.y >= 600.0f);
+    if ((IsKeyPressed(KEY_W) || IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_SPACE)) && body.y >= floorLevel) jumpState =
+        true;
 
     if (jumpState)
     {
-        static float jumpTimer = 0.8f;
+        static float jumpTimer = 0.4f;
         jumpTimer -= GetFrameTime();
-        body.y += GetFrameTime() * -gravity * 1.5f;
+        body.y -= GetFrameTime() * speed * 2.f;
         if (jumpTimer <= 0)
         {
             jumpState = false;
-            jumpTimer = 0.8f;
+            jumpTimer = 0.4f;
         }
     }
+}
+
+void Character::moveRight()
+{
+    if (IsKeyDown(KEY_D)) body.x += speed * GetFrameTime();
+}
+
+void Character::moveLeft()
+{
+    if (IsKeyDown(KEY_A)) body.x -= speed * GetFrameTime();
 }
 
 void Character::update()
 {
     jump();
-    if (body.y <= 600.0f)
+    moveRight();
+    moveLeft();
+    if (body.y <= floorLevel)
     {
-        body.y += GetFrameTime() * gravity;
+        body.y += GetFrameTime() * gravity / 1.5f;
     }
-    else if (body.y > 600.0f)
+    else if (body.y > floorLevel)
     {
-        body.y = 600.0f;
+        body.y = floorLevel;
     }
 }
 
@@ -85,4 +100,14 @@ void Character::setHP(int hpModifier)
     {
         alive = false;
     }
+}
+
+float Character::getSpeed() const
+{
+    return speed;
+}
+
+void Character::setSpeed(float speed_)
+{
+    this->speed = speed_;
 }

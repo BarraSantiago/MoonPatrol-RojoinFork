@@ -33,21 +33,7 @@ void statesOptions()
     {
         backButton.isOverThisButton = false;
     }
-    /*
-    if (CheckCollisionPointRec(mousePoint, fullScreen.rec))
-    {
-        fullScreen.isOverThisButton = true;
-
-        if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON))
-        {
-            ToggleFullscreen();
-        }
-    }
-    else
-    {
-        fullScreen.isOverThisButton = false;
-    }
-    */
+ 
     if (GetScreenWidth() < 2560)
     {
         maxResolutionIndex = 3;

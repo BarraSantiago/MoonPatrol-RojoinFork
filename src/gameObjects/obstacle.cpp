@@ -27,6 +27,11 @@ void Obstacle::changePosX()
     }
 }
 
+void Obstacle::SinusoidalMovement()
+{
+    body.y += sin(body.x / 6) * GetFrameTime() * static_cast<float>(GetScreenWidth()) / 2;
+}
+
 void Obstacle::draw() const
 {
     DrawRectangle(static_cast<int>(rec.x), static_cast<int>(rec.y), static_cast<int>(rec.width),

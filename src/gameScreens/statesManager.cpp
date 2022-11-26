@@ -27,6 +27,7 @@ void unLoadTextures();
 void unLoadAudio();
 void loadAudios();
 
+static GameplayState* gameplayState;
 
 void initProgram()
 {
@@ -39,7 +40,7 @@ void initProgram()
     SetWindowMinSize(1024, 768);
 
     isProgramRunning = true;
-
+    gameplayState = new GameplayState;
     while (!WindowShouldClose() && isProgramRunning)
     {
         UpdateMusicStream(mainTheme);
@@ -63,7 +64,8 @@ void logicProgram()
         statesMenu(gameStates);
         break;
     case GameStates::Game:
-        gameLogic();
+
+        gameplayState->gameLogic();
         break;
     case GameStates::Rules:
         statesRules();
@@ -93,7 +95,7 @@ void drawProgram()
         drawMenu();
         break;
     case GameStates::Game:
-        drawGame();
+        gameplayState->drawGame();
         break;
     case GameStates::Rules:
         drawRules();

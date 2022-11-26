@@ -12,6 +12,7 @@ public:
     ~Obstacle();
     void reset();
     void changePosX();
+    void SinusoidalMovement();
     void draw() const;
     Rectangle getRec() const;
     Circle getBody() const;
