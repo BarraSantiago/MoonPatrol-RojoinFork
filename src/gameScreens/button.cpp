@@ -1,6 +1,5 @@
 #include "button.h"
 #include "raylib.h"
-#include "string"
 #include "system/draw.h"
 
 Font customFont;
@@ -46,7 +45,7 @@ Button createButton(const char* buttonTitle, Color color)
     Button button;
 
     button.rec = {
-        (GetScreenWidth() / 2 - buttonWidth / 2), static_cast<float>(GetScreenHeight() / 3),
+        (static_cast<float>(GetScreenWidth()) / 2 - buttonWidth / 2), static_cast<float>(GetScreenHeight() / 3),
         buttonWidth * static_cast<float>(GetScreenWidth()) / 102,
         buttonHeight * static_cast<float>(GetScreenHeight()) / 768
     };

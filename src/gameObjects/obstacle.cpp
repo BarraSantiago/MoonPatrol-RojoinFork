@@ -1,5 +1,4 @@
 #include "obstacle.h"
-
 #include <iostream>
 #include "raylib.h"
 
@@ -10,7 +9,7 @@ Obstacle::Obstacle()
     alive = true;
     const float initialX = static_cast<float>(GetScreenWidth()) / 2.0f;
     const float initialRadius = static_cast<float>(GetScreenWidth()) / 20.f;
-    const float initialY = GetScreenHeight() * 0.90287f - initialRadius;
+    const float initialY = static_cast<float>(GetScreenHeight()) * 0.90287f - initialRadius;
     body = {initialX, initialY, initialRadius};
 }
 
@@ -60,7 +59,7 @@ void Obstacle::move()
     if (type == helicopter)
     {
         body.x += speed * GetFrameTime();
-        if (getBody().x > GetScreenWidth())
+        if (getBody().x > static_cast<float>(GetScreenWidth()))
         {
             body.x = 0;
         }

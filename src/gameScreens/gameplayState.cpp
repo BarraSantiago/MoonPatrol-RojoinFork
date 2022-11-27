@@ -150,11 +150,11 @@ void GameplayState::drawBackground() const
 {
     static float rotation = 0;
     drawTexture(paralaxBackground, {scrollingBack, 0}, rotation, backgroundScale, WHITE);
-    drawTexture(paralaxBackground, {paralaxBackground.width * backgroundScale + scrollingBack, 0}, rotation,
+    drawTexture(paralaxBackground, {static_cast<float>(paralaxBackground.width) * backgroundScale + scrollingBack, 0}, rotation,
                 backgroundScale, WHITE);
 
     drawTexture(paralaxMidground, {scrollingMid, 0}, rotation, backgroundScale, WHITE);
-    drawTexture(paralaxMidground, {paralaxMidground.width * backgroundScale + scrollingMid, 0}, rotation,
+    drawTexture(paralaxMidground, {static_cast<float>(paralaxMidground.width) * backgroundScale + scrollingMid, 0}, rotation,
                 backgroundScale, WHITE);
 }
 
@@ -171,16 +171,17 @@ void GameplayState::drawForeground() const
     }
 
     drawTexture(paralaxForeground, {scrollingFore, 0}, rotation, backgroundScale, WHITE);
-    drawTexture(paralaxForeground, {paralaxForeground.width * backgroundScale + scrollingFore, 0}, rotation,
+    drawTexture(paralaxForeground, {static_cast<float>(paralaxForeground.width) * backgroundScale + scrollingFore, 0}, rotation,
                 backgroundScale, WHITE);
 }
 
 void GameplayState::drawCharacter() const
 {
     float vehicleScale = backgroundScale * 4;
+    
     drawTexture(characterVehicle, {
-                    character->getBody().x - characterVehicle.width / 4.3f,
-                    character->getBody().y - characterVehicle.height / 1.2f
+                    character->getBody().x - static_cast<float>(characterVehicle.width) / 4.3f,
+                    character->getBody().y - static_cast<float>(characterVehicle.height) / 1.2f
                 }, 0, vehicleScale, RAYWHITE);
 
     float wheelX = character->getBody().x + vehicleScale;
@@ -193,15 +194,14 @@ void GameplayState::drawCharacter() const
     DrawTexturePro(characterWheel, {0, 0, wheelWidth, wheelHeight},
                    {wheelX + wheelWidth * 1.73f, wheelY + wheelHeight * 3, 50, 50}, origin, wheelRotation,RAYWHITE);
 
-    //character->draw();
 }
 
 void GameplayState::drawObstacles() const
 {
     for (Obstacle* obstacle : obstacles)
     {
-        float textureX = obstacle->getBody().x - obstacleBike.width;
-        float textureY = obstacle->getBody().y - obstacleBike.height;
+        float textureX = obstacle->getBody().x - static_cast<float>(obstacleBike.width);
+        float textureY = obstacle->getBody().y - static_cast<float>(obstacleBike.height);
 
         if (obstacle->isAlive())
         {
@@ -215,14 +215,11 @@ void GameplayState::drawObstacles() const
             default:
                 drawTexture(obstacleBike, {textureX, textureY}, 0, 3 * backgroundScale, RAYWHITE);
             }
-
-            //DrawTextureRec(obstacleBike, {0, 0, -static_cast<float>(obstacleBike.width), static_cast<float>(obstacleBike.height)}, {textureX, textureY},                           RAYWHITE);
-            //DrawTexturePro(obstacleBike, {0, 0, -static_cast<float>(obstacleBike.width), static_cast<float>(obstacleBike.height)}, {textureX, textureY},                           RAYWHITE);
         }
     }
 }
 
-void GameplayState::drawGUI()
+void GameplayState::drawGUI() const
 {
     const int posX = GetScreenWidth() / 30;
     const int posY = GetScreenHeight() / 40;
@@ -239,7 +236,7 @@ void GameplayState::BackgroundParalax()
     scrollingMid -= 0.5f * GetFrameTime() * paralaxSpeed;
     scrollingFore -= 1.0f * GetFrameTime() * paralaxSpeed;
 
-    if (scrollingBack <= -paralaxBackground.width * backgroundScale) scrollingBack = 0;
-    if (scrollingMid <= -paralaxMidground.width * backgroundScale) scrollingMid = 0;
-    if (scrollingFore <= -paralaxForeground.width * backgroundScale) scrollingFore = 0;
+    if (scrollingBack <= static_cast<float>(-paralaxBackground.width) * backgroundScale) scrollingBack = 0;
+    if (scrollingMid <= static_cast<float>(-paralaxMidground.width) * backgroundScale) scrollingMid = 0;
+    if (scrollingFore <= static_cast<float>(-paralaxForeground.width) * backgroundScale) scrollingFore = 0;
 }

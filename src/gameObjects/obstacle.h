@@ -1,5 +1,4 @@
 #pragma once
-#include "raylib.h"
 #include "system/circle.h"
 
 class Obstacle

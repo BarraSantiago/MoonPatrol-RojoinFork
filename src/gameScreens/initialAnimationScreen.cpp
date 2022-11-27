@@ -1,11 +1,9 @@
 #include  "initialAnimationScreen.h"
 
-#include "gameLogic/mouseInputs.h"
+#include <string>
 #include <raylib.h>
-
 #include  "gameStatesEnum.h"
 #include "system/draw.h"
-#include "button.h"
 
 extern Font customFont;
 Texture2D splashScreen;

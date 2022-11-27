@@ -37,7 +37,7 @@ private:
     void drawForeground() const;
     void drawCharacter() const;
     void drawObstacles() const;
-    void drawGUI();
+    void drawGUI() const;
     void BackgroundParalax();
     void backToMenu();
 public:

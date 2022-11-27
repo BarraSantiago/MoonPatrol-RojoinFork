@@ -1,5 +1,8 @@
 #include <raylib.h>
 #include "creditsState.h"
+
+#include <string>
+
 #include  "../gameStatesEnum.h"
 #include "system/draw.h"
 #include "../button.h"

@@ -15,7 +15,7 @@ Character::Character()
     score = 0;
     speed = static_cast<float>(GetScreenWidth()) / 2.0f;
     gravity = speed;
-    floorLevel = GetScreenHeight() * 0.90287f - body.height;
+    floorLevel = static_cast<float>(GetScreenHeight()) * 0.90287f - body.height;
     damagedTimer = 0;
 }
 
