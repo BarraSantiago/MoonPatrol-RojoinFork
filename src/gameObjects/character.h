@@ -14,6 +14,7 @@ private:
     int score;
     float damagedTimer;
     bool player2;
+    
 public:
     Character(bool player2);
     ~Character();

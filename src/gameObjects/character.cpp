@@ -31,8 +31,8 @@ void Character::reset()
 {
     const float initialX = static_cast<float>(GetScreenWidth()) / 2.0f;
     const float initialY = static_cast<float>(GetScreenHeight()) / 2.0f;
-    const float initialWidth = static_cast<float>(GetScreenWidth()) / 30.0f;
-    const float initialHeight = static_cast<float>(GetScreenWidth()) / 30.0f;
+    const float initialWidth = static_cast<float>(GetScreenWidth()) / 6.5f;
+    const float initialHeight = static_cast<float>(GetScreenWidth()) / 20.0f;
     body = {initialX, initialY, initialWidth, initialHeight};
     alive = true;
     hp = 3;
@@ -80,12 +80,20 @@ void Character::moveRight()
 {
     const KeyboardKey moveRightKey = !player2 ? KEY_D : KEY_RIGHT; 
     if (IsKeyDown(moveRightKey)) body.x += speed * GetFrameTime();
+    if(body.x > GetScreenWidth())
+    {
+        body.x = 0;
+    }
 }
 
 void Character::moveLeft()
 {
     const KeyboardKey movelEFTKey = !player2 ? KEY_A : KEY_LEFT; 
     if (IsKeyDown(movelEFTKey)) body.x -= speed * GetFrameTime();
+    if(body.x < 0)
+    {
+        body.x = static_cast<float>(GetScreenWidth());
+    }
 }
 
 Bullet* Character::shootUp(Texture2D texture, Sound sound) const
@@ -123,6 +131,8 @@ Rectangle Character::getBody() const
 {
     return body;
 }
+
+
 
 int Character::getScore() const
 {

@@ -7,9 +7,15 @@
 extern Font customFont;
 Button escapeButton = createButton(" GO BACK", RED);
 Texture2D rulesTexture;
+static bool firstTime = true;
 
 void statesRules()
 {
+    if (firstTime)
+    {
+        rulesTexture = LoadTexture("res/rules.png");
+        firstTime = false;
+    }
     Vector2 mousePoint = GetMousePosition();
     escapeButton = createButton(0, static_cast<float>(GetScreenHeight()) - escapeButton.rec.height * 2,
                                 escapeButton.buttonTittle, escapeButton.color);
@@ -20,6 +26,8 @@ void statesRules()
         if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON))
         {
             setGameState(GameStates::Menu);
+            UnloadTexture(rulesTexture);
+            firstTime = true;
         }
     }
     else
@@ -30,10 +38,10 @@ void statesRules()
 
 void drawRules()
 {
-    float width = static_cast<float>(GetScreenWidth());
-    ClearBackground(BLACK);
-    float scale = 0.12f * GetScreenHeight() / 768;
+    extern float backgroundScale;
 
-    drawTexture(rulesTexture, {width / 2.0f - (rulesTexture.width / 2.0f) * scale, 0}, 0, scale, WHITE);
+    ClearBackground(BLACK);
+
+    drawTexture(rulesTexture, {0, 0}, 0, backgroundScale, WHITE);
     drawButton(escapeButton);
 }

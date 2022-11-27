@@ -29,7 +29,13 @@ private:
     float scrollingMid = 0.0f;
     float scrollingFore = 0.0f;
     float wheelRotation = 0;
-
+    float airEnemyTimer=0;
+    float groundEnemyTimer=0;
+    float airOriginalTimer = 7;
+    float groundOriginalTimer = 4;
+    
+    void spawnEnemies();
+    void checkPlayerTextures();
     void update();
     void bulletBehaviour();
     void initTextures();
