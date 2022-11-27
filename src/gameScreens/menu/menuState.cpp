@@ -121,7 +121,7 @@ void drawMenu()
     drawButton(exitButton);
     float fontSize;
     fontSize = 16.0f * static_cast<float>(GetScreenHeight()) / 728.0f;
-    std::string titleScreen = "Moon Patrol";
+    std::string titleScreen = "Mad Patrol";
     drawText(titleScreen.c_str(), width / 2.0f - static_cast<float>(titleScreen.length()) * fontSize * 2.f,
              (height / 8.0f), fontSize * 8.0f, BLACK, customFont);
 }

@@ -19,13 +19,13 @@ private:
     Texture2D characterWheel;
     Texture2D characterBullet;
     Texture2D obstacleBike;
+    Texture2D obstacleHelicopter;
 
     Sound bulletSound;
     
     float scrollingBack = 0.0f;
     float scrollingMid = 0.0f;
     float scrollingFore = 0.0f;
-    float paralaxScale;
     float wheelRotation = 0;
 
     void update();

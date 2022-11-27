@@ -5,24 +5,31 @@
 class Obstacle
 {
 public:
+    
     enum EnemyType
     {
         bike,
-        truck,
-        helicopter
+        helicopter,
+        truck
     };
+    
     Obstacle();
+    Obstacle(EnemyType type);
     ~Obstacle();
     void reset();
-    void changePosX();
+    void move();
     void SinusoidalMovement();
     void draw() const;
     Circle getBody() const;
+    EnemyType getType() const;
     void modifyHP(int hpModifier);
     bool isAlive();
     void setY(float y_);
     void setX(float x_);
+    
 private:
+    
+    float speed;
     Circle body;
     bool alive;
     int hp;

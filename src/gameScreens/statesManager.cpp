@@ -33,13 +33,13 @@ void initProgram()
 {
     setGameState(GameStates::Menu);
     SetRandomSeed(static_cast<unsigned int>(time(nullptr)));
-    InitWindow(1600, 900, "MoonPatrol");
+    InitWindow(1600, 900, "Mad Patrol");
     InitAudioDevice();
     loadResources();
     SetExitKey(NULL);
     SetWindowSize(1600, 900);
 
-    SetTargetFPS(30);
+
     isProgramRunning = true;
     gameplayState = new GameplayState;
     while (!WindowShouldClose() && isProgramRunning)

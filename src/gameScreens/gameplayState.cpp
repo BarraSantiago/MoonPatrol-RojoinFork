@@ -11,7 +11,8 @@ extern float backgroundScale;
 GameplayState::GameplayState()
 {
     character = new Character;
-    obstacles.push_back(new Obstacle());
+    obstacles.push_back(new Obstacle(Obstacle::bike));
+    obstacles.push_back(new Obstacle(Obstacle::helicopter));
     initTextures();
     initAudios();
 }
@@ -55,7 +56,7 @@ void GameplayState::backToMenu()
     firstTime = true;
     unloadTextures();
     character = new Character;
-    
+
     obstacles.push_back(new Obstacle());
     initTextures();
     initAudios();
@@ -67,7 +68,7 @@ void GameplayState::update()
     {
         if (obstacle->isAlive())
         {
-            obstacle->changePosX();
+            obstacle->move();
             if (isCharacterObstacleColliding(character, obstacle)) character->setHP(-1);
         }
     }
@@ -116,6 +117,7 @@ void GameplayState::initTextures()
     paralaxMidground = LoadTexture("res/mountain_midground.png");
     paralaxForeground = LoadTexture("res/mountain_foreground.png");
     characterBullet = LoadTexture("res/entities/player_bullet.png");
+    obstacleHelicopter = LoadTexture("res/entities/enemy_helicopter.png");
 }
 
 void GameplayState::initAudios()
@@ -132,6 +134,8 @@ void GameplayState::unloadTextures()
     UnloadTexture(paralaxBackground);
     UnloadTexture(paralaxMidground);
     UnloadTexture(paralaxForeground);
+    UnloadTexture(characterBullet);
+    UnloadTexture(obstacleHelicopter);
 }
 
 
@@ -147,13 +151,11 @@ void GameplayState::drawBackground() const
     static float rotation = 0;
     drawTexture(paralaxBackground, {scrollingBack, 0}, rotation, backgroundScale, WHITE);
     drawTexture(paralaxBackground, {paralaxBackground.width * backgroundScale + scrollingBack, 0}, rotation,
-                backgroundScale,
-                WHITE);
+                backgroundScale, WHITE);
 
     drawTexture(paralaxMidground, {scrollingMid, 0}, rotation, backgroundScale, WHITE);
     drawTexture(paralaxMidground, {paralaxMidground.width * backgroundScale + scrollingMid, 0}, rotation,
-                backgroundScale,
-                WHITE);
+                backgroundScale, WHITE);
 }
 
 void GameplayState::drawForeground() const
@@ -185,7 +187,9 @@ void GameplayState::drawCharacter() const
     float wheelY = character->getBody().y + vehicleScale * 2;
     float wheelWidth = static_cast<float>(characterWheel.width);
     float wheelHeight = static_cast<float>(characterWheel.height);
+
     const Vector2 origin = {wheelWidth, wheelHeight};
+
     DrawTexturePro(characterWheel, {0, 0, wheelWidth, wheelHeight},
                    {wheelX + wheelWidth * 1.73f, wheelY + wheelHeight * 3, 50, 50}, origin, wheelRotation,RAYWHITE);
 
@@ -196,12 +200,22 @@ void GameplayState::drawObstacles() const
 {
     for (Obstacle* obstacle : obstacles)
     {
+        float textureX = obstacle->getBody().x - obstacleBike.width;
+        float textureY = obstacle->getBody().y - obstacleBike.height;
+
         if (obstacle->isAlive())
         {
-            float textureX = obstacle->getBody().x - obstacleBike.width;
-            float textureY = obstacle->getBody().y - obstacleBike.height;
+            switch (obstacle->getType())
+            {
+            case Obstacle::helicopter:
+                drawTexture(obstacleHelicopter, {textureX, textureY}, 0, 3 * backgroundScale, RAYWHITE);
+                break;
+            case Obstacle::bike:
+            case Obstacle::truck:
+            default:
+                drawTexture(obstacleBike, {textureX, textureY}, 0, 3 * backgroundScale, RAYWHITE);
+            }
 
-            drawTexture(obstacleBike, {textureX, textureY}, 0, 3 * backgroundScale, RAYWHITE);
             //DrawTextureRec(obstacleBike, {0, 0, -static_cast<float>(obstacleBike.width), static_cast<float>(obstacleBike.height)}, {textureX, textureY},                           RAYWHITE);
             //DrawTexturePro(obstacleBike, {0, 0, -static_cast<float>(obstacleBike.width), static_cast<float>(obstacleBike.height)}, {textureX, textureY},                           RAYWHITE);
         }
