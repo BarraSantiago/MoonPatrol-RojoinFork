@@ -9,7 +9,7 @@ class GameplayState
 {
 private:
     Character* character;
-    Obstacle* obstacle;
+    std::vector<Obstacle*> obstacles;
     std::vector<Bullet*> bullets;
     
     Texture2D paralaxBackground;
@@ -29,6 +29,7 @@ private:
     float wheelRotation = 0;
 
     void update();
+    void bulletBehaviour();
     void initTextures();
     void initAudios();
     void unloadTextures();
@@ -36,6 +37,7 @@ private:
     void drawForeground() const;
     void drawCharacter() const;
     void drawObstacles() const;
+    void drawGUI();
     void BackgroundParalax();
     void backToMenu();
 public:

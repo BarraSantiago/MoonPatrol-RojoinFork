@@ -12,6 +12,8 @@ private:
     float speed;
     int hp;
     float floorLevel;
+    int score;
+    float damagedTimer;
 public:
     Character();
     ~Character();
@@ -23,9 +25,14 @@ public:
     void moveLeft();
     Bullet* shootUp(Texture2D texture, Sound sound) const;
     Bullet* shootRight(Texture2D texture, Sound sound) const;
+
     Rectangle getBody() const;
+    int getScore() const;
     bool isAlive() const;
-    void setHP(int hpModifier);
     float getSpeed() const;
+    int getHP() const;
+    void addScore(int scoreModifier);
     void setSpeed(float speed_);
+    void setHP(int hpModifier);
+    
 };

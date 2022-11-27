@@ -6,20 +6,19 @@
 Button backButton = createButton(" GO BACK", RED);
 Button fullScreen;
 Button changeScreen;
-static int resolutionIndex = 1;
+static int resolutionIndex = 2;
 static int maxResolutionIndex = 4;
-
+float backgroundScale = 0.833f;
 void statesOptions()
 {
     backButton = createButton(0, static_cast<float>(GetScreenHeight()) - backButton.rec.height * 2,
                               backButton.buttonTittle, backButton.color);
-    /*
-    fullScreen = createButton(static_cast<float>(GetScreenWidth() / 2), static_cast<float>(GetScreenHeight() / 2), 200,
-                              60.0f * static_cast<float>(GetScreenHeight() / 768), "FullScreen", RED);
-    */
+
     changeScreen = createButton(static_cast<float>(GetScreenWidth() / 4), static_cast<float>(GetScreenHeight() / 2),
                                 200, 60.0f * static_cast<float>(GetScreenHeight() / 768), "Change Res", WHITE);
+
     Vector2 mousePoint = GetMousePosition();
+    
     if (CheckCollisionPointRec(mousePoint, backButton.rec))
     {
         backButton.isOverThisButton = true;
@@ -33,18 +32,21 @@ void statesOptions()
     {
         backButton.isOverThisButton = false;
     }
- 
+
     if (GetScreenWidth() < 2560)
     {
         maxResolutionIndex = 3;
+        
     }
     else if (GetScreenWidth() < 1920)
     {
         maxResolutionIndex = 2;
+        
     }
     else if (GetScreenWidth() < 1600)
     {
         maxResolutionIndex = 1;
+        
     }
 
     if (CheckCollisionPointRec(mousePoint, changeScreen.rec))
@@ -69,15 +71,19 @@ void statesOptions()
     {
     case 1:
         SetWindowSize(1024, 768);
+        backgroundScale = .76f;
         break;
     case 2:
         SetWindowSize(1600, 900);
+        backgroundScale = .833f;
         break;
     case 3:
         SetWindowSize(1920, 1080);
+        backgroundScale = 1.f;
         break;
     case 4:
         SetWindowSize(2560, 1440);
+        backgroundScale = 1.33f;
         break;
     }
 }

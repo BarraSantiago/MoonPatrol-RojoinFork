@@ -7,11 +7,10 @@ Obstacle::Obstacle()
 {
     hp = 2;
     alive = true;
-    rec = {1280, 600, 75, 150};
     const float initialX = static_cast<float>(GetScreenWidth()) / 2.0f;
-    const float initialY = static_cast<float>(GetScreenHeight()) / 2.0f;
-    const float initialWidth = static_cast<float>(GetScreenWidth()) / 6.5f;
-    body = {initialX, initialY, initialWidth};
+    const float initialRadius = static_cast<float>(GetScreenWidth()) / 20.f;
+    const float initialY = GetScreenHeight() * 0.90287f - initialRadius;
+    body = {initialX, initialY, initialRadius};
 }
 
 Obstacle::~Obstacle()
@@ -21,15 +20,18 @@ Obstacle::~Obstacle()
 
 void Obstacle::reset()
 {
-    rec = {1280, 600, 75, 150};
+    const float initialX = static_cast<float>(GetScreenWidth()) / 2.0f;
+    const float initialY = static_cast<float>(GetScreenHeight()) / 2.0f;
+    const float initialWidth = static_cast<float>(GetScreenWidth()) / 20.f;
+    body = {initialX, initialY, initialWidth};
 }
 
 void Obstacle::changePosX()
 {
-    rec.x -= 200 * GetFrameTime();
-    if (rec.x < 0)
+    body.x -= 200 * GetFrameTime();
+    if (body.x < 0)
     {
-        rec.x = static_cast<float>(GetScreenWidth());
+        body.x = static_cast<float>(GetScreenWidth());
     }
 }
 
@@ -40,14 +42,9 @@ void Obstacle::SinusoidalMovement()
 
 void Obstacle::draw() const
 {
-    DrawRectangle(static_cast<int>(rec.x), static_cast<int>(rec.y), static_cast<int>(rec.width),
-                  static_cast<int>(rec.height), BLUE);
+    DrawCircle(static_cast<int>(body.x), static_cast<int>(body.y), body.radius,BLUE);
 }
 
-Rectangle Obstacle::getRec() const
-{
-    return rec;
-}
 
 Circle Obstacle::getBody() const
 {

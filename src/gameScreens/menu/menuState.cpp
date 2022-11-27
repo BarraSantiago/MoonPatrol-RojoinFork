@@ -108,12 +108,12 @@ void statesMenu(GameStates& gamestate)
         exitButton.isOverThisButton = false;
     }
 }
-
 void drawMenu()
 {
+    extern float backgroundScale; 
     float width = static_cast<float>(GetScreenWidth());
     float height = static_cast<float>(GetScreenHeight());
-    drawTexture(titleTexture, {0, 0}, 0, 0.7f, WHITE);
+    drawTexture(titleTexture, {0, 0}, 0, backgroundScale, WHITE);
     drawButton(playButton);
     drawButton(howToPlayButton);
     drawButton(optionsButton);

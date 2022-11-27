@@ -33,11 +33,11 @@ void initProgram()
 {
     setGameState(GameStates::Menu);
     SetRandomSeed(static_cast<unsigned int>(time(nullptr)));
-    InitWindow(1024, 768, "MoonPatrol");
+    InitWindow(1600, 900, "MoonPatrol");
     InitAudioDevice();
     loadResources();
     SetExitKey(NULL);
-    SetWindowMinSize(1024, 768);
+    SetWindowSize(1600, 900);
 
     SetTargetFPS(30);
     isProgramRunning = true;
@@ -65,7 +65,6 @@ void logicProgram()
         statesMenu(gameStates);
         break;
     case GameStates::Game:
-
         gameplayState->gameLogic();
         break;
     case GameStates::Rules:
