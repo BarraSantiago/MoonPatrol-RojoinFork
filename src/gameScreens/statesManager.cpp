@@ -39,6 +39,7 @@ void initProgram()
     SetExitKey(NULL);
     SetWindowMinSize(1024, 768);
 
+    SetTargetFPS(30);
     isProgramRunning = true;
     gameplayState = new GameplayState;
     while (!WindowShouldClose() && isProgramRunning)
@@ -111,7 +112,10 @@ void drawProgram()
     default: ;
     }
 
-    drawText("Version:0.2", 720, 720, 40, RAYWHITE);
+    const int fontSize = (GetScreenWidth()) / 40;
+    const int textX = (GetScreenWidth()) / 50;
+    const int textY = static_cast<int>(GetScreenHeight() * 0.95f);
+    drawText("Version:0.3", textX, textY, fontSize, RAYWHITE);
     EndDrawing();
 }
 

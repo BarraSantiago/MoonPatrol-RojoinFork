@@ -4,7 +4,7 @@
 class Character
 {
 private:
-    Circle body{};
+    Rectangle body{};
     bool alive;
     bool jumpState;
     float gravity;
@@ -20,7 +20,7 @@ public:
     void jump();
     void moveRight();
     void moveLeft();
-    Circle getBody() const;
+    Rectangle getBody() const;
     bool isAlive() const;
     void setHP(int hpModifier);
     float getSpeed() const;

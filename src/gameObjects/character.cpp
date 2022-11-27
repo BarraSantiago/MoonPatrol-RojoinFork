@@ -6,14 +6,15 @@ Character::Character()
 {
     const float initialX = static_cast<float>(GetScreenWidth()) / 2.0f;
     const float initialY = static_cast<float>(GetScreenHeight()) / 2.0f;
-    const float initialRadius = static_cast<float>(GetScreenWidth()) / 30.0f;
-    body = {initialX, initialY, initialRadius};
+    const float initialWidth = static_cast<float>(GetScreenWidth()) / 6.5f;
+    const float initialHeight = static_cast<float>(GetScreenWidth()) / 20.0f;
+    body = {initialX, initialY, initialWidth, initialHeight};
     hp = 3;
     alive = true;
     jumpState = false;
     speed = static_cast<float>(GetScreenWidth()) / 2.0f;
     gravity = speed;
-    floorLevel = GetScreenHeight() * 0.9287f - body.radius;
+    floorLevel = GetScreenHeight() * 0.90287f - body.height;
 }
 
 Character::~Character()
@@ -25,8 +26,9 @@ void Character::reset()
 {
     const float initialX = static_cast<float>(GetScreenWidth()) / 2.0f;
     const float initialY = static_cast<float>(GetScreenHeight()) / 2.0f;
-    const float initialRadius = static_cast<float>(GetScreenWidth()) / 30.0f;
-    body = {initialX, initialY, initialRadius};
+    const float initialWidth = static_cast<float>(GetScreenWidth()) / 30.0f;
+    const float initialHeight = static_cast<float>(GetScreenWidth()) / 30.0f;
+    body = {initialX, initialY, initialWidth, initialHeight};
     alive = true;
     hp = 3;
     jumpState = false;
@@ -36,7 +38,7 @@ void Character::reset()
 
 void Character::draw() const
 {
-    DrawCircle(static_cast<int>(body.x), static_cast<int>(body.y), body.radius, RED);
+    DrawRectangleRec(body, RED);
 }
 
 void Character::jump()
@@ -83,7 +85,7 @@ void Character::update()
 }
 
 
-Circle Character::getBody() const
+Rectangle Character::getBody() const
 {
     return body;
 }

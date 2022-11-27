@@ -6,6 +6,10 @@
 Obstacle::Obstacle()
 {
     rec = {1280, 600, 75, 150};
+    const float initialX = static_cast<float>(GetScreenWidth()) / 2.0f;
+    const float initialY = static_cast<float>(GetScreenHeight()) / 2.0f;
+    const float initialWidth = static_cast<float>(GetScreenWidth()) / 6.5f;
+    body = {initialX, initialY, initialWidth};
 }
 
 Obstacle::~Obstacle()

@@ -24,11 +24,11 @@ void GameplayState::gameLogic()
 {
     backToMenu();
 
-
     if (character->isAlive())
     {
         obstacle->changePosX();
         character->update();
+        wheelRotation += GetFrameTime() * character->getSpeed();
         BackgroundParalax();
     }
     else
@@ -39,7 +39,7 @@ void GameplayState::gameLogic()
         firstTime = true;
         unloadTextures();
     }
-    character->setHP(isCharacterObstacleColliding(character, obstacle) ? -1 : 0);
+    //if(isCharacterObstacleColliding(character, obstacle)) character->setHP(-1);
 }
 
 void GameplayState::backToMenu()
@@ -57,6 +57,9 @@ void GameplayState::backToMenu()
 
 void GameplayState::initTextures()
 {
+    characterVehicle = LoadTexture("res/entities/player_car.png");
+    characterWheel = LoadTexture("res/entities/wheel1.png");
+    obstacleBike = LoadTexture("res/entities/enemy_bike.png");
     paralaxBackground = LoadTexture("res/montain_bakground.png");
     paralaxMidground = LoadTexture("res/mountain_midground.png");
     paralaxForeground = LoadTexture("res/mountain_foreground.png");
@@ -64,12 +67,21 @@ void GameplayState::initTextures()
 
 void GameplayState::unloadTextures()
 {
+    UnloadTexture(characterVehicle);
+    UnloadTexture(characterWheel);
+    UnloadTexture(obstacleBike);
     UnloadTexture(paralaxBackground);
     UnloadTexture(paralaxMidground);
     UnloadTexture(paralaxForeground);
 }
 
+
 void GameplayState::drawGame()
+{
+    drawBackground();
+}
+
+void GameplayState::drawBackground() const
 {
     static float rotation = 0;
     drawTexture(paralaxBackground, {scrollingBack, 0}, rotation, paralaxScale, WHITE);
@@ -80,11 +92,40 @@ void GameplayState::drawGame()
     drawTexture(paralaxMidground, {paralaxMidground.width * paralaxScale + scrollingMid, 0}, rotation, paralaxScale,
                 WHITE);
 
-    character->draw();
+    drawCharacter();
+    drawObstacles();
     obstacle->draw();
     drawTexture(paralaxForeground, {scrollingFore, 0}, rotation, paralaxScale, WHITE);
-    DrawTextureEx(paralaxForeground, {paralaxForeground.width * paralaxScale + scrollingFore, 0}, rotation,
-                  paralaxScale, WHITE);
+    drawTexture(paralaxForeground, {paralaxForeground.width * paralaxScale + scrollingFore, 0}, rotation,
+                paralaxScale, WHITE);
+}
+
+void GameplayState::drawCharacter() const
+{
+    drawTexture(characterVehicle, {
+                    character->getBody().x - characterVehicle.width / 4.3f,
+                    character->getBody().y - characterVehicle.height / 1.2f
+                }, 0, 2, RAYWHITE);
+
+    const Vector2 origin = {10, 10};
+    DrawTexturePro(characterWheel,
+                   {0, 0, static_cast<float>(characterWheel.width), static_cast<float>(characterWheel.height)},
+                   {
+                       character->getBody().x + characterVehicle.width * 1.5f,
+                       character->getBody().y + characterVehicle.height * 1.5f, 50, 50
+                   }, origin, wheelRotation,
+                   RAYWHITE);
+
+    //character->draw();
+}
+
+void GameplayState::drawObstacles() const
+{
+    drawTexture(obstacleBike, {
+                    obstacle->getBody().x - obstacleBike.width / 4.3f,
+                    obstacle->getBody().y - obstacleBike.height / 1.2f
+                }, 0, 2, RAYWHITE);
+
 }
 
 void GameplayState::BackgroundParalax()

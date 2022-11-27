@@ -13,6 +13,32 @@ bool isCircleCircleColliding(Circle circle1, Circle circle2)
     return distance < circle1.radius + circle2.radius;
 }
 
+// Collision by Jeffrey Thompson https://www.jeffreythompson.org/collision-detection/circle-rect.php
+bool isCircleRectColliding(Circle circle, Rectangle rectangle)
+{
+    // temporary variables to set edges for testing
+    float testX = circle.x;
+    float testY = circle.y;
+
+    // which edge is closest?
+    if (circle.x < rectangle.x) testX = rectangle.x; // test left edge
+    else if (circle.x > rectangle.x + rectangle.width) testX = rectangle.x + rectangle.width; // right edge
+    if (circle.y < rectangle.y) testY = rectangle.y; // top edge
+    else if (circle.y > rectangle.y + rectangle.height) testY = rectangle.y + rectangle.height; // bottom edge
+
+    // get distance from closest edges
+    float distX = circle.x - testX;
+    float distY = circle.y - testY;
+    float distance = sqrt((distX * distX) + (distY * distY));
+
+    // if the distance is less than the radius, collision!
+    if (distance <= circle.radius)
+    {
+        return true;
+    }
+    return false;
+}
+
 bool isPointRecColliding(Vector2 mouse, Rectangle rec) //Check if works
 {
     float rightEdge = rec.x + rec.width;
@@ -49,4 +75,3 @@ bool isRecRecColliding(Rectangle rec, Rectangle rec2)
     }
     return false;
 }
-

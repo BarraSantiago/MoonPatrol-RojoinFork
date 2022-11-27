@@ -17,10 +17,15 @@ Button optionsButton = createButton("  OPTIONS ", YELLOW);
 Button creditsButton = createButton("  CREDITS ", YELLOW);
 Button exitButton = createButton("   EXIT", RED);
 
-Texture2D titleTexture;
-
+Texture2D titleTexture ;
+bool firstTime = true;
 void statesMenu(GameStates& gamestate)
 {
+    if(firstTime)
+    {
+        titleTexture = LoadTexture("res/montain_bakground.png");
+        firstTime = false;
+    }
     middleScreen = {static_cast<float>(GetScreenWidth()) / 2.0f, static_cast<float>(GetScreenHeight()) / 2.0f};
     playButton = createButton(middleScreen.x - playButton.rec.width / 2, middleScreen.y - playButton.rec.height / 2,
                               "   PLAY", DARKGREEN);
@@ -37,7 +42,7 @@ void statesMenu(GameStates& gamestate)
                               creditsButton.rec.y + exitButton.rec.height * 2, exitButton.buttonTittle,
                               exitButton.color);
     Vector2 mousePoint = GetMousePosition();
-
+    
     if (isPointRecColliding(mousePoint, playButton.rec))
     {
         playButton.isOverThisButton = true;
@@ -108,6 +113,7 @@ void drawMenu()
 {
     float width = static_cast<float>(GetScreenWidth());
     float height = static_cast<float>(GetScreenHeight());
+    drawTexture(titleTexture, {0, 0}, 0, 0.7f, WHITE);
     drawButton(playButton);
     drawButton(howToPlayButton);
     drawButton(optionsButton);
@@ -115,10 +121,7 @@ void drawMenu()
     drawButton(exitButton);
     float fontSize;
     fontSize = 16.0f * static_cast<float>(GetScreenHeight()) / 728.0f;
-    std::string titleScreen = "The Last Slice";
-    drawText(titleScreen.c_str(), width / 2.0f - static_cast<float>(titleScreen.length()) * fontSize * 1.5f,
+    std::string titleScreen = "Moon Patrol";
+    drawText(titleScreen.c_str(), width / 2.0f - static_cast<float>(titleScreen.length()) * fontSize * 2.f,
              (height / 8.0f), fontSize * 8.0f, BLACK, customFont);
-    drawTexture(titleTexture,
-                {width / 3.0f - static_cast<float>(titleScreen.length()) * fontSize * 1.5f, height / 16.0f}, 0,
-                0.17f * (GetScreenHeight()) / 728, WHITE);
 }
