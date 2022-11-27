@@ -5,6 +5,8 @@
 
 Obstacle::Obstacle()
 {
+    hp = 2;
+    alive = true;
     rec = {1280, 600, 75, 150};
     const float initialX = static_cast<float>(GetScreenWidth()) / 2.0f;
     const float initialY = static_cast<float>(GetScreenHeight()) / 2.0f;
@@ -50,6 +52,20 @@ Rectangle Obstacle::getRec() const
 Circle Obstacle::getBody() const
 {
     return body;
+}
+
+void Obstacle::modifyHP(int hpModifier)
+{
+    hp += hpModifier;
+    if(hp <= 0)
+    {
+        alive = false;
+    }
+}
+
+bool Obstacle::isAlive()
+{
+    return alive;
 }
 
 void Obstacle::setY(float y_)

@@ -18,8 +18,6 @@ void drawTexture(Texture2D texture, Vector2 position, float rotation, float scal
 void drawTexture(Texture2D texture, Rectangle source, Rectangle dest, Vector2 position, float rotation, float scale,
                  Color tint)
 {
-    position.x *= scale;
-    position.y *= scale;
     DrawTextureTiled(texture, source, dest, position, rotation, scale, tint);
 }
 

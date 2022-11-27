@@ -1,6 +1,5 @@
 #include "collisionFunctions.h"
 
-#include <iostream>
 
 #include  "cmath"
 // Collision by Jeffrey Thompson https://www.jeffreythompson.org/collision-detection/circle-circle.php

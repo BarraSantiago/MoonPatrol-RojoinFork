@@ -13,10 +13,17 @@ GameplayState::GameplayState()
     obstacle = new Obstacle;
     paralaxScale = 0.7f;
     initTextures();
+    initAudios();
 }
 
 GameplayState::~GameplayState()
 {
+    for (Bullet* bullet : bullets)
+    {
+        delete bullet;
+    }
+    delete character;
+    delete obstacle;
     std::cout << "Gameplay state has been destroyed.";
 }
 
@@ -26,10 +33,7 @@ void GameplayState::gameLogic()
 
     if (character->isAlive())
     {
-        obstacle->changePosX();
-        character->update();
-        wheelRotation += GetFrameTime() * character->getSpeed();
-        BackgroundParalax();
+        update();
     }
     else
     {
@@ -39,7 +43,6 @@ void GameplayState::gameLogic()
         firstTime = true;
         unloadTextures();
     }
-    //if(isCharacterObstacleColliding(character, obstacle)) character->setHP(-1);
 }
 
 void GameplayState::backToMenu()
@@ -55,6 +58,37 @@ void GameplayState::backToMenu()
 }
 
 
+void GameplayState::update()
+{
+    obstacle->changePosX();
+    character->update();
+
+    if (IsKeyReleased(KEY_W)) bullets.push_back(character->shootUp(characterBullet, bulletSound));
+    if (IsKeyReleased(KEY_F)) bullets.push_back(character->shootRight(characterBullet, bulletSound));
+
+    for (Bullet* bullet : bullets)
+    {
+        bullet->changeBulletPosition();
+    }
+
+    //if (isCharacterObstacleColliding(character, obstacle)) character->setHP(-1);
+
+    for (Bullet* bullet : bullets)
+    {
+        if (obstacle->isAlive() && bullet->isActive())
+        {
+            if (isObstacleBulletColliding(obstacle, bullet))
+            {
+                bullet->setActive(false);
+                obstacle->modifyHP(-1);
+            }
+        }
+    }
+
+    wheelRotation += GetFrameTime() * character->getSpeed();
+    BackgroundParalax();
+}
+
 void GameplayState::initTextures()
 {
     characterVehicle = LoadTexture("res/entities/player_car.png");
@@ -63,7 +97,14 @@ void GameplayState::initTextures()
     paralaxBackground = LoadTexture("res/montain_bakground.png");
     paralaxMidground = LoadTexture("res/mountain_midground.png");
     paralaxForeground = LoadTexture("res/mountain_foreground.png");
+    characterBullet = LoadTexture("res/entities/player_bullet.png");
 }
+
+void GameplayState::initAudios()
+{
+    bulletSound = LoadSound("res/audios/bulletFired.wav");
+}
+
 
 void GameplayState::unloadTextures()
 {
@@ -79,6 +120,7 @@ void GameplayState::unloadTextures()
 void GameplayState::drawGame()
 {
     drawBackground();
+    drawForeground();
 }
 
 void GameplayState::drawBackground() const
@@ -91,10 +133,19 @@ void GameplayState::drawBackground() const
     drawTexture(paralaxMidground, {scrollingMid, 0}, rotation, paralaxScale, WHITE);
     drawTexture(paralaxMidground, {paralaxMidground.width * paralaxScale + scrollingMid, 0}, rotation, paralaxScale,
                 WHITE);
+}
+
+void GameplayState::drawForeground() const
+{
+    static float rotation = 0;
 
     drawCharacter();
     drawObstacles();
-    obstacle->draw();
+    if (obstacle->isAlive()) obstacle->draw();
+    for (Bullet* bullet : bullets)
+    {
+        bullet->drawBullet();
+    }
     drawTexture(paralaxForeground, {scrollingFore, 0}, rotation, paralaxScale, WHITE);
     drawTexture(paralaxForeground, {paralaxForeground.width * paralaxScale + scrollingFore, 0}, rotation,
                 paralaxScale, WHITE);
@@ -108,6 +159,7 @@ void GameplayState::drawCharacter() const
                 }, 0, 2, RAYWHITE);
 
     const Vector2 origin = {10, 10};
+
     DrawTexturePro(characterWheel,
                    {0, 0, static_cast<float>(characterWheel.width), static_cast<float>(characterWheel.height)},
                    {
@@ -121,11 +173,13 @@ void GameplayState::drawCharacter() const
 
 void GameplayState::drawObstacles() const
 {
-    drawTexture(obstacleBike, {
-                    obstacle->getBody().x - obstacleBike.width / 4.3f,
-                    obstacle->getBody().y - obstacleBike.height / 1.2f
-                }, 0, 2, RAYWHITE);
-
+    if (obstacle->isAlive())
+    {
+        drawTexture(obstacleBike, {
+                        obstacle->getBody().x - obstacleBike.width / 4.3f,
+                        obstacle->getBody().y - obstacleBike.height / 2.f
+                    }, 0, 2, RAYWHITE);
+    }
 }
 
 void GameplayState::BackgroundParalax()

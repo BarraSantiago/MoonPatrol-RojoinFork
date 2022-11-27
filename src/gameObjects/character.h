@@ -1,4 +1,5 @@
 #pragma once
+#include "Bullets.h"
 #include "system/circle.h"
 
 class Character
@@ -20,6 +21,8 @@ public:
     void jump();
     void moveRight();
     void moveLeft();
+    Bullet* shootUp(Texture2D texture, Sound sound) const;
+    Bullet* shootRight(Texture2D texture, Sound sound) const;
     Rectangle getBody() const;
     bool isAlive() const;
     void setHP(int hpModifier);

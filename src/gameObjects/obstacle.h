@@ -7,6 +7,8 @@ class Obstacle
 private:
     Rectangle rec;
     Circle body;
+    bool alive;
+    int hp;
 public:
     Obstacle();
     ~Obstacle();
@@ -16,6 +18,8 @@ public:
     void draw() const;
     Rectangle getRec() const;
     Circle getBody() const;
+    void modifyHP(int hpModifier);
+    bool isAlive();
     void setY(float y_);
     void setX(float x_);
 };

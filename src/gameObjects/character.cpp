@@ -43,19 +43,30 @@ void Character::draw() const
 
 void Character::jump()
 {
-    if ((IsKeyPressed(KEY_W) || IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_SPACE)) && body.y >= floorLevel) jumpState =
-        true;
-
-    if (jumpState)
+    static float jumpTimer = 0.4f;
+    if ((IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_SPACE)) && body.y >= floorLevel)
     {
-        static float jumpTimer = 0.4f;
-        jumpTimer -= GetFrameTime();
-        body.y -= GetFrameTime() * speed * 2.f;
-        if (jumpTimer <= 0)
+        jumpState = true;
+        jumpTimer = 0.4f;
+        body.y -= speed * GetFrameTime() * 1.5f;
+    }
+
+    if (IsKeyDown(KEY_SPACE) && jumpState)
+    {
+        if (jumpTimer > 0)
+        {
+            body.y -= speed * GetFrameTime() * 2.f;
+            jumpTimer -= GetFrameTime();
+        }
+        else
         {
             jumpState = false;
-            jumpTimer = 0.4f;
         }
+    }
+
+    if (IsKeyUp(KEY_SPACE))
+    {
+        jumpState = false;
     }
 }
 
@@ -69,16 +80,31 @@ void Character::moveLeft()
     if (IsKeyDown(KEY_A)) body.x -= speed * GetFrameTime();
 }
 
+Bullet* Character::shootUp(Texture2D texture, Sound sound) const
+{
+    const float size = static_cast<float>(GetScreenWidth()) / 90.0f;
+    const float bulletSpeed = speed * 1.3f;
+    return new Bullet(texture, sound, {0, -1}, {body.x + body.width / 2, body.y}, size, 90.f, bulletSpeed);
+}
+
+Bullet* Character::shootRight(Texture2D texture, Sound sound) const
+{
+    const float size =static_cast<float>(GetScreenWidth()) / 90.0f;
+    const float bulletSpeed = speed * 1.3f;
+    return new Bullet(texture, sound, {1, 0}, {body.x + body.width / 2, body.y}, size, 0.f, bulletSpeed);
+}
+
 void Character::update()
 {
     jump();
     moveRight();
     moveLeft();
-    if (body.y <= floorLevel)
+
+    if (body.y < floorLevel)
     {
-        body.y += GetFrameTime() * gravity / 1.5f;
+        body.y += GetFrameTime() * gravity / 1.4f;
     }
-    else if (body.y > floorLevel)
+    else
     {
         body.y = floorLevel;
     }
