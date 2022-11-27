@@ -2,20 +2,23 @@
 #include <iostream>
 #include "raylib.h"
 
-Character::Character()
+Character::Character(bool player2)
 {
     const float initialX = static_cast<float>(GetScreenWidth()) / 2.0f;
     const float initialY = static_cast<float>(GetScreenHeight()) / 2.0f;
     const float initialWidth = static_cast<float>(GetScreenWidth()) / 6.5f;
     const float initialHeight = static_cast<float>(GetScreenWidth()) / 20.0f;
     body = {initialX, initialY, initialWidth, initialHeight};
-    hp = 3;
+    
     alive = true;
     jumpState = false;
-    score = 0;
+    this->player2 = player2;
+    
     speed = static_cast<float>(GetScreenWidth()) / 2.0f;
-    gravity = speed;
     floorLevel = static_cast<float>(GetScreenHeight()) * 0.90287f - body.height;
+    gravity = speed;
+    hp = 3;
+    score = 0;
     damagedTimer = 0;
 }
 
@@ -46,14 +49,15 @@ void Character::draw() const
 void Character::jump()
 {
     static float jumpTimer = 0.3f;
-    if ((IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_SPACE)) && body.y >= floorLevel)
+    const KeyboardKey jumpKey = !player2 ?  KEY_SPACE : KEY_UP;
+    if (IsKeyPressed(jumpKey) && body.y >= floorLevel)
     {
         jumpState = true;
         jumpTimer = 0.3f;
         body.y -= speed * GetFrameTime() * 1.5f;
     }
 
-    if (IsKeyDown(KEY_SPACE) && jumpState)
+    if (IsKeyDown(jumpKey) && jumpState)
     {
         if (jumpTimer > 0)
         {
@@ -66,7 +70,7 @@ void Character::jump()
         }
     }
 
-    if (IsKeyUp(KEY_SPACE))
+    if (IsKeyUp(jumpKey))
     {
         jumpState = false;
     }
@@ -74,12 +78,14 @@ void Character::jump()
 
 void Character::moveRight()
 {
-    if (IsKeyDown(KEY_D)) body.x += speed * GetFrameTime();
+    const KeyboardKey moveRightKey = !player2 ? KEY_D : KEY_RIGHT; 
+    if (IsKeyDown(moveRightKey)) body.x += speed * GetFrameTime();
 }
 
 void Character::moveLeft()
 {
-    if (IsKeyDown(KEY_A)) body.x -= speed * GetFrameTime();
+    const KeyboardKey movelEFTKey = !player2 ? KEY_A : KEY_LEFT; 
+    if (IsKeyDown(movelEFTKey)) body.x -= speed * GetFrameTime();
 }
 
 Bullet* Character::shootUp(Texture2D texture, Sound sound) const
@@ -144,6 +150,16 @@ void Character::setHP(int hpModifier)
     {
         alive = false;
     }
+}
+
+void Character::setX(float x_)
+{
+    body.x = x_;
+}
+
+void Character::modifyFloorLevel(float modifier)
+{
+    floorLevel *= modifier;
 }
 
 float Character::getSpeed() const

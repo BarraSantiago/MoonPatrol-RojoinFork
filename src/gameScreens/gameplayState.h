@@ -8,14 +8,16 @@
 class GameplayState
 {
 private:
-    Character* character;
+    Character* characterP1;
+    Character* characterP2;
     std::vector<Obstacle*> obstacles;
     std::vector<Bullet*> bullets;
     
     Texture2D paralaxBackground;
     Texture2D paralaxMidground;
     Texture2D paralaxForeground;
-    Texture2D characterVehicle;
+    Texture2D characterP1Vehicle;
+    Texture2D characterP2Vehicle;
     Texture2D characterWheel;
     Texture2D characterBullet;
     Texture2D obstacleBike;
@@ -33,6 +35,7 @@ private:
     void initTextures();
     void initAudios();
     void unloadTextures();
+    void unloadSounds();
     void drawBackground() const;
     void drawForeground() const;
     void drawCharacter() const;

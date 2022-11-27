@@ -4,11 +4,13 @@
 #include "optionsState.h"
 
 Button backButton = createButton(" GO BACK", RED);
-Button fullScreen;
 Button changeScreen;
+Button secondPlayer;
+bool secondPlayerActive = false;
 static int resolutionIndex = 2;
 static int maxResolutionIndex = 4;
 float backgroundScale = 0.833f;
+
 void statesOptions()
 {
     backButton = createButton(0, static_cast<float>(GetScreenHeight()) - backButton.rec.height * 2,
@@ -16,9 +18,11 @@ void statesOptions()
 
     changeScreen = createButton(static_cast<float>(GetScreenWidth() / 4), static_cast<float>(GetScreenHeight() / 2),
                                 200, 60.0f * static_cast<float>(GetScreenHeight() / 768), "Change Res", WHITE);
+    secondPlayer = createButton(static_cast<float>(GetScreenWidth() / 4) * 2, static_cast<float>(GetScreenHeight() / 2),
+                                200, 60.0f * static_cast<float>(GetScreenHeight() / 768), "Second player", WHITE);
 
     Vector2 mousePoint = GetMousePosition();
-    
+
     if (CheckCollisionPointRec(mousePoint, backButton.rec))
     {
         backButton.isOverThisButton = true;
@@ -36,17 +40,14 @@ void statesOptions()
     if (GetScreenWidth() < 2560)
     {
         maxResolutionIndex = 3;
-        
     }
     else if (GetScreenWidth() < 1920)
     {
         maxResolutionIndex = 2;
-        
     }
     else if (GetScreenWidth() < 1600)
     {
         maxResolutionIndex = 1;
-        
     }
 
     if (CheckCollisionPointRec(mousePoint, changeScreen.rec))
@@ -65,6 +66,20 @@ void statesOptions()
     else
     {
         changeScreen.isOverThisButton = false;
+    }
+
+    if (CheckCollisionPointRec(mousePoint, secondPlayer.rec))
+    {
+        secondPlayer.isOverThisButton = true;
+
+        if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON))
+        {
+            secondPlayerActive = !secondPlayerActive;
+        }
+    }
+    else
+    {
+        secondPlayer.isOverThisButton = false;
     }
 
     switch (resolutionIndex)
@@ -91,7 +106,7 @@ void statesOptions()
 void drawOptions()
 {
     ClearBackground(BLACK);
-    drawButton(fullScreen);
     drawButton(changeScreen);
+    drawButton(secondPlayer);
     drawButton(backButton);
 }

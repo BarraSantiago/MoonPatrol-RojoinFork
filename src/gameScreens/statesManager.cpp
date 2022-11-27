@@ -114,7 +114,7 @@ void drawProgram()
     const int fontSize = (GetScreenWidth()) / 40;
     const int textX = (GetScreenWidth()) / 50;
     const int textY = static_cast<int>(GetScreenHeight() * 0.95f);
-    drawText("Version:0.3", textX, textY, fontSize, RAYWHITE);
+    drawText("Version:0.4", textX, textY, fontSize, RAYWHITE);
     EndDrawing();
 }
 

@@ -1,6 +1,5 @@
 #pragma once
 #include "Bullets.h"
-#include "system/circle.h"
 
 class Character
 {
@@ -14,8 +13,9 @@ private:
     float floorLevel;
     int score;
     float damagedTimer;
+    bool player2;
 public:
-    Character();
+    Character(bool player2);
     ~Character();
     void reset();
     void draw() const;
@@ -34,5 +34,6 @@ public:
     void addScore(int scoreModifier);
     void setSpeed(float speed_);
     void setHP(int hpModifier);
-    
+    void setX(float x_);
+    void modifyFloorLevel(float modifier);
 };

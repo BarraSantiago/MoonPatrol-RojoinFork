@@ -7,10 +7,12 @@
 
 static bool firstTime = true;
 extern float backgroundScale;
+extern bool secondPlayerActive;
 
 GameplayState::GameplayState()
 {
-    character = new Character;
+    characterP1 = new Character(false);
+    characterP2 = new Character(true);
     obstacles.push_back(new Obstacle(Obstacle::bike));
     obstacles.push_back(new Obstacle(Obstacle::helicopter));
     initTextures();
@@ -19,7 +21,7 @@ GameplayState::GameplayState()
 
 GameplayState::~GameplayState()
 {
-    delete character;
+    delete characterP1;
     for (Bullet* bullet : bullets)
     {
         delete bullet;
@@ -34,8 +36,18 @@ GameplayState::~GameplayState()
 void GameplayState::gameLogic()
 {
     if (IsKeyDown(KEY_ESCAPE))backToMenu();
-
-    if (character->isAlive())
+    if (firstTime)
+    {
+        if (secondPlayerActive)
+        {
+            characterP2Vehicle = LoadTexture("res/entities/playerTwo_car.png");
+            characterP1Vehicle = LoadTexture("res/entities/playerOne_car.png");
+            characterP2->modifyFloorLevel(.99f);
+            characterP2->setX(characterP2->getBody().x+characterP2->getBody().width);
+        }
+        firstTime = false;
+    }
+    if (characterP1->isAlive() || characterP2->isAlive())
     {
         update();
     }
@@ -48,14 +60,15 @@ void GameplayState::gameLogic()
 void GameplayState::backToMenu()
 {
     setGameState(GameStates::Menu);
-    character->reset();
+    characterP1->reset();
     for (Obstacle* obstacle : obstacles)
     {
         obstacle->modifyHP(-50);
     }
     firstTime = true;
     unloadTextures();
-    character = new Character;
+    characterP1 = new Character(false);
+    characterP2 = new Character(true);
 
     obstacles.push_back(new Obstacle());
     initTextures();
@@ -69,19 +82,30 @@ void GameplayState::update()
         if (obstacle->isAlive())
         {
             obstacle->move();
-            if (isCharacterObstacleColliding(character, obstacle)) character->setHP(-1);
+            if (isCharacterObstacleColliding(characterP1, obstacle)) characterP1->setHP(-1);
+            if (isCharacterObstacleColliding(characterP2, obstacle)) characterP2->setHP(-1);
         }
     }
-    character->update();
+    characterP1->update();
+    if (secondPlayerActive) characterP2->update();
     bulletBehaviour();
-    wheelRotation += GetFrameTime() * character->getSpeed();
+    wheelRotation += GetFrameTime() * characterP1->getSpeed();
     BackgroundParalax();
 }
 
 void GameplayState::bulletBehaviour()
 {
-    if (IsKeyReleased(KEY_W)) bullets.push_back(character->shootUp(characterBullet, bulletSound));
-    if (IsKeyReleased(KEY_F)) bullets.push_back(character->shootRight(characterBullet, bulletSound));
+    if (!secondPlayerActive)
+    {
+        if (IsKeyReleased(KEY_W)) bullets.push_back(characterP1->shootUp(characterBullet, bulletSound));
+        if (IsKeyReleased(KEY_F)) bullets.push_back(characterP1->shootRight(characterBullet, bulletSound));
+    }
+    else
+    {
+        if (IsKeyReleased(KEY_W)) bullets.push_back(characterP1->shootUp(characterBullet, bulletSound));
+        if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) bullets.push_back(
+            characterP2->shootRight(characterBullet, bulletSound));
+    }
 
     for (Bullet* bullet : bullets)
     {
@@ -100,7 +124,7 @@ void GameplayState::bulletBehaviour()
                     obstacle->modifyHP(-1);
                     if (!obstacle->isAlive())
                     {
-                        character->addScore(20);
+                        characterP1->addScore(20);
                     }
                 }
             }
@@ -110,7 +134,7 @@ void GameplayState::bulletBehaviour()
 
 void GameplayState::initTextures()
 {
-    characterVehicle = LoadTexture("res/entities/player_car.png");
+    characterP1Vehicle = LoadTexture("res/entities/player_car.png");
     characterWheel = LoadTexture("res/entities/wheel1.png");
     obstacleBike = LoadTexture("res/entities/enemy_bike.png");
     paralaxBackground = LoadTexture("res/montain_bakground.png");
@@ -128,7 +152,7 @@ void GameplayState::initAudios()
 
 void GameplayState::unloadTextures()
 {
-    UnloadTexture(characterVehicle);
+    UnloadTexture(characterP1Vehicle);
     UnloadTexture(characterWheel);
     UnloadTexture(obstacleBike);
     UnloadTexture(paralaxBackground);
@@ -136,6 +160,12 @@ void GameplayState::unloadTextures()
     UnloadTexture(paralaxForeground);
     UnloadTexture(characterBullet);
     UnloadTexture(obstacleHelicopter);
+    if (secondPlayerActive) characterP2Vehicle = LoadTexture("res/entities/playerTwo_car.png");
+}
+
+void GameplayState::unloadSounds()
+{
+    UnloadSound(bulletSound);
 }
 
 
@@ -150,11 +180,13 @@ void GameplayState::drawBackground() const
 {
     static float rotation = 0;
     drawTexture(paralaxBackground, {scrollingBack, 0}, rotation, backgroundScale, WHITE);
-    drawTexture(paralaxBackground, {static_cast<float>(paralaxBackground.width) * backgroundScale + scrollingBack, 0}, rotation,
+    drawTexture(paralaxBackground, {static_cast<float>(paralaxBackground.width) * backgroundScale + scrollingBack, 0},
+                rotation,
                 backgroundScale, WHITE);
 
     drawTexture(paralaxMidground, {scrollingMid, 0}, rotation, backgroundScale, WHITE);
-    drawTexture(paralaxMidground, {static_cast<float>(paralaxMidground.width) * backgroundScale + scrollingMid, 0}, rotation,
+    drawTexture(paralaxMidground, {static_cast<float>(paralaxMidground.width) * backgroundScale + scrollingMid, 0},
+                rotation,
                 backgroundScale, WHITE);
 }
 
@@ -171,21 +203,22 @@ void GameplayState::drawForeground() const
     }
 
     drawTexture(paralaxForeground, {scrollingFore, 0}, rotation, backgroundScale, WHITE);
-    drawTexture(paralaxForeground, {static_cast<float>(paralaxForeground.width) * backgroundScale + scrollingFore, 0}, rotation,
+    drawTexture(paralaxForeground, {static_cast<float>(paralaxForeground.width) * backgroundScale + scrollingFore, 0},
+                rotation,
                 backgroundScale, WHITE);
 }
 
 void GameplayState::drawCharacter() const
 {
     float vehicleScale = backgroundScale * 4;
-    
-    drawTexture(characterVehicle, {
-                    character->getBody().x - static_cast<float>(characterVehicle.width) / 4.3f,
-                    character->getBody().y - static_cast<float>(characterVehicle.height) / 1.2f
+
+    drawTexture(characterP1Vehicle, {
+                    characterP1->getBody().x - static_cast<float>(characterP1Vehicle.width) / 4.3f,
+                    characterP1->getBody().y - static_cast<float>(characterP1Vehicle.height) / 1.2f
                 }, 0, vehicleScale, RAYWHITE);
 
-    float wheelX = character->getBody().x + vehicleScale;
-    float wheelY = character->getBody().y + vehicleScale * 2;
+    float wheelX = characterP1->getBody().x + vehicleScale;
+    float wheelY = characterP1->getBody().y + vehicleScale * 2;
     float wheelWidth = static_cast<float>(characterWheel.width);
     float wheelHeight = static_cast<float>(characterWheel.height);
 
@@ -193,7 +226,24 @@ void GameplayState::drawCharacter() const
 
     DrawTexturePro(characterWheel, {0, 0, wheelWidth, wheelHeight},
                    {wheelX + wheelWidth * 1.73f, wheelY + wheelHeight * 3, 50, 50}, origin, wheelRotation,RAYWHITE);
+    
+    if (secondPlayerActive)
+    {
+        drawTexture(characterP2Vehicle, {
+                    characterP2->getBody().x - static_cast<float>(characterP2Vehicle.width) / 4.3f,
+                    characterP2->getBody().y - static_cast<float>(characterP2Vehicle.height) / 1.2f
+                }, 0, vehicleScale, RAYWHITE);
 
+        float wheelX2 = characterP2->getBody().x + vehicleScale;
+        float wheelY2 = characterP2->getBody().y + vehicleScale * 2;
+        float wheelWidth2 = static_cast<float>(characterWheel.width);
+        float wheelHeight2 = static_cast<float>(characterWheel.height);
+
+        const Vector2 origin2 = {wheelWidth2, wheelHeight2};
+
+        DrawTexturePro(characterWheel, {0, 0, wheelWidth2, wheelHeight2},
+                       {wheelX2 + wheelWidth2 * 1.73f, wheelY2 + wheelHeight2 * 3, 50, 50}, origin2, wheelRotation,RAYWHITE);
+    }
 }
 
 void GameplayState::drawObstacles() const
@@ -225,13 +275,13 @@ void GameplayState::drawGUI() const
     const int posY = GetScreenHeight() / 40;
     const int fontSize = GetScreenWidth() / 35;
     const int textMeasured = MeasureText("Score: %04i", fontSize * 2);
-    DrawText(TextFormat("Score: %04i", character->getScore()), posX, posY, fontSize, RED);
-    DrawText(TextFormat("Hp: %01i", character->getHP()), posX + textMeasured, posY, fontSize, RED);
+    DrawText(TextFormat("Score: %04i", characterP1->getScore()), posX, posY, fontSize, RED);
+    DrawText(TextFormat("Hp: %01i", characterP1->getHP()), posX + textMeasured, posY, fontSize, RED);
 }
 
 void GameplayState::BackgroundParalax()
 {
-    const float paralaxSpeed = character->getSpeed() / 2;
+    const float paralaxSpeed = characterP1->getSpeed() / 2;
     scrollingBack -= 0.1f * GetFrameTime() * paralaxSpeed;
     scrollingMid -= 0.5f * GetFrameTime() * paralaxSpeed;
     scrollingFore -= 1.0f * GetFrameTime() * paralaxSpeed;

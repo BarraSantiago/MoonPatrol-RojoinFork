@@ -22,7 +22,7 @@ public:
     void drawBullet();
     Circle getBody() const;
     void setActive(bool active_);
-    bool isActive();
+    bool isActive() const;
     float BULLET_MAX_SPEED = 500.0f;
 
 };
