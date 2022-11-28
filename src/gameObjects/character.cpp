@@ -87,7 +87,7 @@ void Character::moveRight()
 {
     const KeyboardKey moveRightKey = !player2 ? KEY_D : KEY_RIGHT; 
     if (IsKeyDown(moveRightKey)) body.x += speed * GetFrameTime();
-    if(body.x > GetScreenWidth())
+    if(body.x > static_cast<float>(GetScreenWidth()))
     {
         body.x = 0;
     }

@@ -7,10 +7,10 @@
 #include  "system/collisionFunctions.h"
 #include "system/draw.h"
 
-Vector2 middleScreen = {GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f};
+Vector2 middleScreen = {static_cast<float>(GetScreenWidth()) / 2.0f, static_cast<float>(GetScreenHeight()) / 2.0f};
 extern Font customFont;
 
-Vector2 Screen = {GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f};
+Vector2 Screen = {static_cast<float>(GetScreenWidth()) / 2.0f, static_cast<float>(GetScreenHeight()) / 2.0f};
 Button playButton = createButton("     PLAY", DARKGREEN);
 Button howToPlayButton = createButton("   RULES", YELLOW);
 Button optionsButton = createButton("  OPTIONS ", YELLOW);

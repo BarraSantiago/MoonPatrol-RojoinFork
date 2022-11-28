@@ -237,7 +237,7 @@ void drawCompleteVehicle(Texture2D vehicle, Texture2D wheel, Vector2 pos, float 
     float wheelWidth = static_cast<float>(wheel.width);
     float wheelHeight = static_cast<float>(wheel.height);
     float wheelX = pos.x + vehicleScale + wheelWidth * 1.73f;
-    float wheelX2 = pos.x + vehicleScale + wheelWidth * 1.73f + vehicle.width * 2;
+    float wheelX2 = pos.x + vehicleScale + wheelWidth * 1.73f + static_cast<float>(vehicle.width) * 2;
     float wheelY = pos.y + vehicleScale * 1.7f;
 
     const Vector2 origin = {wheelWidth, wheelHeight};

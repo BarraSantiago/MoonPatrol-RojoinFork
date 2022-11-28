@@ -75,7 +75,7 @@ void drawCredits()
     float linkPosition[7];
     for (std::string creditText : creditNames)
     {
-        linkPosition[index] = (static_cast<float>(TextSize(creditText, fontSize)) + xPos) * 0.98f;
+        linkPosition[index] = (static_cast<float>(TextSize(creditText, fontSize)) + static_cast<float>(xPos)) * 0.98f;
 
         index++;
     }

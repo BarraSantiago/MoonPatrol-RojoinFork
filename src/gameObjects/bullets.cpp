@@ -30,7 +30,7 @@ void Bullet::changeBulletPosition()
 {
     body.x += direction.x * speed * GetFrameTime() * static_cast<float>(GetScreenWidth()) / 1024;
     body.y += direction.y * speed * GetFrameTime() * static_cast<float>(GetScreenHeight()) / 768;
-    if (body.x > GetScreenWidth() || body.y < 0) active = false;
+    if (body.x > static_cast<float>(GetScreenWidth()) || body.y < 0) active = false;
 }
 
 
