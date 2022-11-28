@@ -2,7 +2,7 @@
 #include "system/draw.h"
 
 
-Bullet::Bullet(Texture2D texture, Sound sound)
+Bullet::Bullet(Texture2D texture)
 {
     this->texture = texture;
     this->direction = {0, 0};
@@ -11,16 +11,14 @@ Bullet::Bullet(Texture2D texture, Sound sound)
     this->speed = 0;
     this->active = false;
     this->body.radius = static_cast<float>(GetScreenHeight()) / 60;
-    this->sound = sound;
 }
 
 extern float backgroundScale;
 
-Bullet::Bullet(Texture2D texture, Sound sound, Vector2 direction, Vector2 position, float radius, float rotation,
+Bullet::Bullet(Texture2D texture, Vector2 direction, Vector2 position, float radius, float rotation,
                float speed)
 {
     this->texture = texture;
-    this->sound = sound;
     this->direction = direction;
     this->rotation = rotation;
     this->body = {position.x, position.y, radius};

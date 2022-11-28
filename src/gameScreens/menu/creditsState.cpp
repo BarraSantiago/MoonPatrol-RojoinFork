@@ -99,10 +99,10 @@ void drawCredits()
         {
         case 0:
         case 1:
-            color = RED;
+            color = NEONCYAN;
             break;
         case 2:
-            color = NEONCYAN;
+            color = RED;
             break;
         default:
             color = GREEN;

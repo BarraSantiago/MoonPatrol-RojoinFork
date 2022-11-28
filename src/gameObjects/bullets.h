@@ -9,14 +9,13 @@ private:
     Texture texture;
     Circle body;
     Vector2 direction;
-    Sound sound;
     float rotation;
     bool active;
     float speed;
     int maxBullets = 20;
 public:
-    Bullet(Texture2D texture, Sound sound);
-    Bullet(Texture2D texture, Sound sound, Vector2 direction, Vector2 position, float radius, float rotation, float speed);
+    Bullet(Texture2D texture);
+    Bullet(Texture2D texture, Vector2 direction, Vector2 position, float radius, float rotation, float speed);
     void changeBulletPosition();
     void drawBullet();
     Circle getBody() const;

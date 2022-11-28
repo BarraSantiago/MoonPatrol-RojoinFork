@@ -23,8 +23,6 @@ private:
     Texture2D obstacleBike;
     Texture2D obstacleHelicopter;
 
-    Sound bulletSound;
-    
     float scrollingBack = 0.0f;
     float scrollingMid = 0.0f;
     float scrollingFore = 0.0f;
@@ -39,9 +37,7 @@ private:
     void update();
     void bulletBehaviour();
     void initTextures();
-    void initAudios();
     void unloadTextures();
-    void unloadSounds();
     void drawBackground() const;
     void drawForeground() const;
     void drawCharacter() const;

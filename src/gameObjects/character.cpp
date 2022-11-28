@@ -4,7 +4,7 @@
 
 Character::Character(bool player2)
 {
-    const float initialX = static_cast<float>(GetScreenWidth()) / 2.0f;
+    const float initialX = static_cast<float>(GetScreenWidth()) / 20.0f;
     const float initialY = static_cast<float>(GetScreenHeight()) / 2.0f;
     const float initialWidth = static_cast<float>(GetScreenWidth()) / 6.5f;
     const float initialHeight = static_cast<float>(GetScreenWidth()) / 20.0f;
@@ -29,15 +29,22 @@ Character::~Character()
 
 void Character::reset()
 {
-    const float initialX = static_cast<float>(GetScreenWidth()) / 2.0f;
+    const float initialX = static_cast<float>(GetScreenWidth()) / 20.0f;
     const float initialY = static_cast<float>(GetScreenHeight()) / 2.0f;
     const float initialWidth = static_cast<float>(GetScreenWidth()) / 6.5f;
     const float initialHeight = static_cast<float>(GetScreenWidth()) / 20.0f;
     body = {initialX, initialY, initialWidth, initialHeight};
+    
     alive = true;
-    hp = 3;
     jumpState = false;
+    this->player2 = player2;
+    
+    speed = static_cast<float>(GetScreenWidth()) / 2.0f;
+    floorLevel = static_cast<float>(GetScreenHeight()) * 0.90287f - body.height;
     gravity = speed;
+    hp = 3;
+    score = 0;
+    damagedTimer = 0;
 }
 
 
@@ -96,18 +103,18 @@ void Character::moveLeft()
     }
 }
 
-Bullet* Character::shootUp(Texture2D texture, Sound sound) const
+Bullet* Character::shootUp(Texture2D texture) const
 {
     const float size = static_cast<float>(GetScreenWidth()) / 90.0f;
     const float bulletSpeed = speed * 1.3f;
-    return new Bullet(texture, sound, {0, -1}, {body.x + body.width / 2, body.y}, size, 90.f, bulletSpeed);
+    return new Bullet(texture, {0, -1}, {body.x + body.width / 2, body.y}, size, 90.f, bulletSpeed);
 }
 
-Bullet* Character::shootRight(Texture2D texture, Sound sound) const
+Bullet* Character::shootRight(Texture2D texture) const
 {
     const float size = static_cast<float>(GetScreenWidth()) / 90.0f;
     const float bulletSpeed = speed * 1.3f;
-    return new Bullet(texture, sound, {1, 0}, {body.x + body.width / 2, body.y}, size, 0.f, bulletSpeed);
+    return new Bullet(texture, {1, 0}, {body.x + body.width / 2, body.y}, size, 0.f, bulletSpeed);
 }
 
 void Character::update()

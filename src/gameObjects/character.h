@@ -24,8 +24,8 @@ public:
     void jump();
     void moveRight();
     void moveLeft();
-    Bullet* shootUp(Texture2D texture, Sound sound) const;
-    Bullet* shootRight(Texture2D texture, Sound sound) const;
+    Bullet* shootUp(Texture2D texture) const;
+    Bullet* shootRight(Texture2D texture) const;
 
     Rectangle getBody() const;
     int getScore() const;

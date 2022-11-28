@@ -36,7 +36,6 @@ void initProgram()
     InitWindow(1600, 900, "Mad Patrol");
     InitAudioDevice();
     loadResources();
-    SetExitKey(NULL);
     SetWindowSize(1600, 900);
 
 

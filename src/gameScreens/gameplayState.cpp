@@ -17,12 +17,12 @@ GameplayState::GameplayState()
     characterP1 = new Character(false);
     characterP2 = new Character(true);
     initTextures();
-    initAudios();
 }
 
 GameplayState::~GameplayState()
 {
     delete characterP1;
+    delete characterP2;
     for (Bullet* bullet : bullets)
     {
         delete bullet;
@@ -66,12 +66,11 @@ void GameplayState::backToMenu()
 
     firstTime = true;
 
-    characterP1 = new Character(false);
-    characterP2 = new Character(true);
+    characterP1->reset();
+    characterP2->reset();
 
     unloadTextures();
     initTextures();
-    initAudios();
 }
 
 void GameplayState::checkPlayerTextures()
@@ -113,16 +112,15 @@ void GameplayState::update()
 
 void GameplayState::bulletBehaviour()
 {
+    if (IsKeyReleased(KEY_W)) bullets.push_back(characterP1->shootUp(characterBullet));
     if (!secondPlayerActive)
     {
-        if (IsKeyReleased(KEY_W)) bullets.push_back(characterP1->shootUp(characterBullet, bulletSound));
-        if (IsKeyReleased(KEY_F)) bullets.push_back(characterP1->shootRight(characterBullet, bulletSound));
+        if (IsKeyReleased(KEY_F)) bullets.push_back(characterP1->shootRight(characterBullet));
     }
     else
     {
-        if (IsKeyReleased(KEY_W)) bullets.push_back(characterP1->shootUp(characterBullet, bulletSound));
         if (IsKeyReleased(KEY_RIGHT_CONTROL))
-            bullets.push_back(characterP2->shootRight(characterBullet, bulletSound));
+            bullets.push_back(characterP2->shootRight(characterBullet));
     }
 
     for (Bullet* bullet : bullets)
@@ -163,11 +161,6 @@ void GameplayState::initTextures()
     paralaxForeground = LoadTexture("res/mountain_foreground.png");
 }
 
-void GameplayState::initAudios()
-{
-    bulletSound = LoadSound("res/audios/bulletFired.wav");
-}
-
 
 void GameplayState::unloadTextures()
 {
@@ -181,12 +174,6 @@ void GameplayState::unloadTextures()
     UnloadTexture(obstacleHelicopter);
     UnloadTexture(characterP2Vehicle);
 }
-
-void GameplayState::unloadSounds()
-{
-    UnloadSound(bulletSound);
-}
-
 
 void GameplayState::drawGame()
 {

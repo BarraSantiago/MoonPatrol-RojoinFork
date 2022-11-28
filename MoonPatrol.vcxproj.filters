@@ -44,22 +44,10 @@
     <ClCompile Include="src\gameScreens\statesManager.cpp">
       <Filter>GameScenes</Filter>
     </ClCompile>
-    <ClCompile Include="src\gameScreens\rulesState.cpp">
-      <Filter>GameScenes</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gameScreens\optionState.cpp">
-      <Filter>GameScenes</Filter>
-    </ClCompile>
     <ClCompile Include="src\gameLogic\mouseInputs.cpp">
       <Filter>GameScenes</Filter>
     </ClCompile>
-    <ClCompile Include="src\gameScreens\menuState.cpp">
-      <Filter>GameScenes</Filter>
-    </ClCompile>
     <ClCompile Include="src\gameScreens\initialAnimationScreen.cpp">
-      <Filter>GameScenes</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gameScreens\creditsState.cpp">
       <Filter>GameScenes</Filter>
     </ClCompile>
     <ClCompile Include="src\gameScreens\gameStatesEnum.cpp">
@@ -71,15 +59,21 @@
     <ClCompile Include="src\gameObjects\bullets.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="src\gameScreens\menu\creditsState.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gameScreens\menu\menuState.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gameScreens\menu\optionState.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gameScreens\menu\rulesState.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\gameLogic\collisionLogic.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="src\gameLogic\mouseInputs.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="src\gameObjects\gameObjectsEnums.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="src\gameScreens\button.h">
@@ -106,19 +100,7 @@
     <ClInclude Include="src\gameScreens\statesManager.h">
       <Filter>GameScenes</Filter>
     </ClInclude>
-    <ClInclude Include="src\gameScreens\rulesState.h">
-      <Filter>GameScenes</Filter>
-    </ClInclude>
-    <ClInclude Include="src\gameScreens\optionsState.h">
-      <Filter>GameScenes</Filter>
-    </ClInclude>
-    <ClInclude Include="src\gameScreens\menuState.h">
-      <Filter>GameScenes</Filter>
-    </ClInclude>
     <ClInclude Include="src\gameScreens\initialAnimationScreen.h">
-      <Filter>GameScenes</Filter>
-    </ClInclude>
-    <ClInclude Include="src\gameScreens\creditsState.h">
       <Filter>GameScenes</Filter>
     </ClInclude>
     <ClInclude Include="src\gameScreens\gameStatesEnum.h">
@@ -129,6 +111,18 @@
     </ClInclude>
     <ClInclude Include="src\gameObjects\bullets.h">
       <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gameScreens\menu\creditsState.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gameScreens\menu\menuState.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gameScreens\menu\optionsState.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gameScreens\menu\rulesState.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
