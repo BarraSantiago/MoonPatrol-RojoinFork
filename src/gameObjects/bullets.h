@@ -12,7 +12,6 @@ private:
     Sound sound;
     float rotation;
     bool active;
-    float scale;
     float speed;
     int maxBullets = 20;
 public:

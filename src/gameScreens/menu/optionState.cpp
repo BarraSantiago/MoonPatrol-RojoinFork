@@ -15,11 +15,13 @@ void statesOptions()
 {
     backButton = createButton(0, static_cast<float>(GetScreenHeight()) - backButton.rec.height * 2,
                               backButton.buttonTittle, backButton.color);
-
-    changeScreen = createButton(static_cast<float>(GetScreenWidth() / 4), static_cast<float>(GetScreenHeight() / 2),
-                                200, 60.0f * static_cast<float>(GetScreenHeight() / 768), "Change Res", WHITE);
+    /*
+        changeScreen = createButton(static_cast<float>(GetScreenWidth() / 4), static_cast<float>(GetScreenHeight() / 2),
+                                    200, 60.0f * static_cast<float>(GetScreenHeight() / 768), "Change Res", WHITE);
+        */
     secondPlayer = createButton(static_cast<float>(GetScreenWidth() / 4) * 2, static_cast<float>(GetScreenHeight() / 2),
-                                200, 60.0f * static_cast<float>(GetScreenHeight() / 768), "Second player", !secondPlayerActive ? WHITE : GREEN);
+                                200, 60.0f * static_cast<float>(GetScreenHeight() / 768), "Second player",
+                                !secondPlayerActive ? WHITE : GREEN);
 
     Vector2 mousePoint = GetMousePosition();
 

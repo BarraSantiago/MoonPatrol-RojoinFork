@@ -155,12 +155,12 @@ void GameplayState::initTextures()
     characterP1Vehicle = LoadTexture("res/entities/player_car.png");
     characterP2Vehicle = LoadTexture("res/entities/playerTwo_car.png");
     characterWheel = LoadTexture("res/entities/wheel1.png");
+    characterBullet = LoadTexture("res/entities/player_bullet.png");
     obstacleBike = LoadTexture("res/entities/enemy_bike.png");
+    obstacleHelicopter = LoadTexture("res/entities/enemy_helicopter.png");
     paralaxBackground = LoadTexture("res/montain_bakground.png");
     paralaxMidground = LoadTexture("res/mountain_midground.png");
     paralaxForeground = LoadTexture("res/mountain_foreground.png");
-    characterBullet = LoadTexture("res/entities/player_bullet.png");
-    obstacleHelicopter = LoadTexture("res/entities/enemy_helicopter.png");
 }
 
 void GameplayState::initAudios()
